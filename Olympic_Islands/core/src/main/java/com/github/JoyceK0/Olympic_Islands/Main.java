@@ -42,14 +42,14 @@ public class Main extends Game {
         super.resize(width, height);
     }
 
-    public void addScreen(Screen screen){
+    public void addScreen(Screen screen) {
         screenCache.put(screen.getClass(),screen);
     }
 
-    public void setScreen(Class<? extends Screen>screenClass){
+    public void setScreen(Class<? extends Screen> screenClass) {
         Screen screen = screenCache.get(screenClass);
         if(screen == null){
-            throw new GdxRuntimeException("No screen with this class " + screenClass +" found");
+            throw new GdxRuntimeException("No screen with this class " + screenClass + " found in the screen cache");
         }
         super.setScreen(screen);
     }

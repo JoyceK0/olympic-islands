@@ -40,7 +40,7 @@ public class DialogueHash {
     public int calcBucket(String name) {
         //Performs hashing index calculation
 
-        int hashNumber = name.hashCode(); // This converts the name string into an arbitrary number that stays consistent for each name every runtime
+        int hashNumber = Math.abs(name.hashCode()); // This converts the name string into an arbitrary number that stays consistent for each name every runtime
         return(hashNumber%buckets.length);
 
     }//end of calcBucket
@@ -55,39 +55,33 @@ public class DialogueHash {
             System.out.println("NPC to add value is null!");
             return;
         }
-        else if(buckets[calcBucket(npcToAdd.name)] != null) {
 
-            if(buckets[calcBucket(npcToAdd.name)].name.equals(npcToAdd.name)) { //If NPC already added then avoid addition
-                return;
-            }
+        // Perform linear probing to find the appropriate insertion spot available
 
-            // If NPC not exists, then perform linear probing to find the next insertion spot available
+        int initialPos = calcBucket(npcToAdd.name);
+        int pos = initialPos;
 
-            int pos = calcBucket(npcToAdd.name);
+        do {
 
-            while(true){
-
-                pos += 1; // Increase position being checked
-
-                // If npc exists and is the same as the one trying to add, return
-                if(buckets[pos] != null) {
-                    if(buckets[pos].name.equals(npcToAdd.name)) {
-                        return;
-                    }
-
-                    // Skip rest of the code if value is null and not equal to value to add
-                    else{ continue; }
+            // If npc exists and is the same as the one trying to add, return
+            if(buckets[pos] != null) {
+                if(buckets[pos].name.equals(npcToAdd.name)) {
+                    return;
                 }
+            }
 
-                buckets[pos] = npcToAdd; // Add npc to table if spot is empty
+            else { // Value is null
+                buckets[pos] = npcToAdd; // Add npc to table
                 return;
             }
 
-        }
+            // Increment position if value is not null and not equal to value to add, meaning its occupied
+            pos = (pos + 1) % buckets.length; // Increase position being checked
 
-        //Add npc
-        buckets[calcBucket(npcToAdd.name)] = npcToAdd;
+        } while(pos != initialPos);
 
+        // If exits means it found no empty spot
+        System.out.println("Hash Table is FULL!");
 
     }//end of addToTable
 
@@ -109,11 +103,11 @@ public class DialogueHash {
     public DialogueList getNpc(String name) {
         //find and return npc starting dialogue reference value from table based on name
 
-       int pos = calcBucket(name); //Initial and expected position to find npc data
-
+       int initialPos = calcBucket(name); //Initial and expected position to find npc data
+       int pos = initialPos;
         // Perform linear probing to find the npc
 
-       while(true) {
+       do {
 
            if(buckets[pos] == null){ //Since no NPCs are ever removed, null will not be a problem when searching
                break;
@@ -123,8 +117,9 @@ public class DialogueHash {
                return buckets[pos];
            }
 
-           pos += 1; // Increase position by one
-       }
+           pos = (pos + 1) % buckets.length; // Increase position by one, and wrap around if reach the end
+
+       } while(pos != initialPos);
 
         //This will only run if a value is not returned in the loop, DNE in table
         System.out.println("NPC not found! Returned null value.");

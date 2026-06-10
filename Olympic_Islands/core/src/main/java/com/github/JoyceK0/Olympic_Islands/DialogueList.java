@@ -15,10 +15,11 @@ public class DialogueList {
     public String name;
     public boolean done;
     public boolean mainBranch;
+    public String triggerEvent;
     public ArrayList<String> dialogue;
-    private String path1name;
-    private String path2name;
-    private String path3name;
+    public String path1name;
+    public String path2name;
+    public String path3name;
     public int chosenOption;
     private DialogueList path1;
     private DialogueList path2;
@@ -28,12 +29,13 @@ public class DialogueList {
 
     // Constructor
 
-    public DialogueList(String name, boolean mainBranch, ArrayList<String> dialogue, DialogueList prevDialogue) {
+    public DialogueList(String name, boolean mainBranch, ArrayList<String> dialogue, DialogueList prevDialogue, String triggerEvent) {
         this.name = name;
         this.mainBranch = mainBranch;
         this.dialogue = dialogue;
         this.prevDialogue = prevDialogue;
         this.spritePath = name+".png";
+        this.triggerEvent = triggerEvent;
 
         path1name = null;
         path2name = null;
@@ -90,7 +92,5 @@ public class DialogueList {
             System.out.println("ALL DIALOGUE PATHS ARE FULL");
         }
     }
-
-    // a file opener function which opens an inputted file path and creates the linked lists for every character
 
 }

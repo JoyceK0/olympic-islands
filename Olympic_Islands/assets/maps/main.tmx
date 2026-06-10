@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="15">
+ <tileset firstgid="1" source="tileset.tsx"/>
+ <tileset firstgid="193" source="adventure_awaits.tsx"/>
+ <tileset firstgid="324" source="test.tsx"/>
+ <tileset firstgid="685" source="Tiled.tiled-project.tsx"/>
+ <tileset firstgid="698" source="objects/lucky_21x21px_NO PADDING.tsx"/>
+ <tileset firstgid="720" source="objects/stork.tsx"/>
+ <tileset firstgid="724" source="objects/chicken.tsx"/>
+ <layer id="1" name="ground" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt281u1DAUBeB0drNoYNghAUsEO0DwEOyQkArsaXkDJN6DdcVL0OcjUcdTy/jvOr7X156zOJp2mgyxvxw7s+AwTdMBQRAEQRAEaZb5mNbXgcBCU+aJxwPG+uYNJmXzBQ8dkfKAiZ75godOD5jomCt46JoreOiaq1no3xkh8NAVeOiKxFzBQ89cuZ8Pj7Ym8NDj4bOAR9m8cTnDo9wkd+58x6IX8iah42DBb7I1rcfVa+ChJ1wWvXi8WvLck9eDWWj2sA1eLLnz5JmQCbeBZiPjEDLwmdTuSuv51+BDdQi51LJpPeetPZ4UOvjyeGAPqW6U9oJ7X2k9/713o2ZHtJn02A2uZ69zsODqBkdHWtlIOXB6XA7iIW3Rq4eESQsLrr3DeHB+fx+xH1x7x6X1M5fJiGsWl8fTJS+t3znWrRH3dNvjUWUTuyPwgAc8HjLDY7PH2yW7inl3ph63xPdDHpzp/RmLYnIbSerc9xP9vn9z8RDKeR/OxCNkkjmePxIZoB/rOKYr5kh5rOl8D4GHIo/Dcb5qX7/J1yW/l3wRNOHwuBJ0WMfw8wIeKQ+OnthdmK05gkc86/yYOarVlcBnwSPTw72nS10S58Ijw8J42K/UNcyzNsGj0MPMl+uS2xNCn4bzqP2d0PQj1BMz36le2O/5jEf1qN0RZ75IPQk5tfT4NoiH/ZqznxQ+I588OExsjztBE26PVE/Mq9stX9ec909jgAfNw9cTtxextS7wO7uH2T9G9Ij1JNUH2xMeddar0L2fc2wgoh5SJhL7eSiUY1Ph9FjnaRSP1H1e0Iv/egKPtEdOavRCykMq3N8HK3Ug2At4xD049whfL+ARTqgXtfvhc4YHXz9yjrX6AY+IR+x+Lrn3c4+FR9hjw56Afgj0g7MX8Kjfjy29kPC43k3TjUB+7O7/DwKHR2kvIuee7qEWHp+PuWH8mdMj16SHfvS+XlHm1123IvE6wIPWj9z9ubQXXB7fl3waxIOyDlHWtNhn1/YwHendg7A/Z61pob/7zh/BY03NMVB6UfI8FuoNl8cvYY/aY8jdL3L7kePJ5bHuIdcDeKTue8pa1rIfdnoySHWk5P7P7Y6Ux1YXiWvL8aA8R1E75B7fcsya47t3S5+FKT1qPW7NiZnU2j9cr9Zj1p7SXuT2w/5767H2Et/+UaMn6/sfd7DYYhJyyPmOgR7IueTsD62vfeRQvoO0vlYEieWvgmtA7rOHh6rAQ2/2Cq7h3LO30vpazj3/AJpJ2N8=
+  </data>
+ </layer>
+ <layer id="3" name="background" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+ <objectgroup id="4" name="objects">
+  <object id="1" gid="201" x="368.027" y="525.722" width="55" height="83"/>
+  <object id="2" name="Slice 13" gid="205" x="454.636" y="572.568" width="48" height="54"/>
+  <object id="6" name="horse" gid="685" x="139.47" y="194.894" width="60" height="33"/>
+  <object id="9" gid="201" x="846.357" y="764.7" width="55" height="83"/>
+  <object id="11" gid="720" x="801" y="767.75" width="48" height="48"/>
+  <object id="12" gid="720" x="881.159" y="767.023" width="48" height="48"/>
+  <object id="13" gid="724" x="1345.68" y="1205.14" width="32" height="32"/>
+  <object id="14" gid="720" x="11.9512" y="1576.48" width="48" height="48"/>
+ </objectgroup>
+ <objectgroup id="5" name="player">
+  <object id="8" name="player" gid="698" x="862.104" y="799.92" width="21" height="21"/>
+ </objectgroup>
+ <layer id="2" name="foreground" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+</map>

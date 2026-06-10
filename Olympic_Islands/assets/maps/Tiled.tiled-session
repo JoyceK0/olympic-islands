@@ -1,0 +1,116 @@
+{
+    "activeFile": "main.tmx",
+    "expandedProjectPaths": [
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "Tiled.tiled-project.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "adventure_awaits.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 3.3
+        },
+        "cat.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 7.3737
+        },
+        "lucky_21x21px_NO PADDING.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "main.tmx": {
+            "scale": 1.9749,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": -104.30907894070586,
+                "y": 1545.1415261532227
+            }
+        },
+        "objects.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "objects/chicken.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 3.3
+        },
+        "objects/deerM.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 3.3
+        },
+        "objects/lucky_21x21px_NO PADDING.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 3.3
+        },
+        "objects/stork.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 3.3
+        },
+        "stork.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "test.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1.8192,
+            "scaleInEditor": 3.3
+        },
+        "tileset.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 2.5155,
+            "scaleInEditor": 3.3
+        }
+    },
+    "frame.defaultDuration": 200,
+    "last.externalTilesetPath": "/Users/Hi/Coding Projects/Olympic_Islands/assets/maps/objects",
+    "last.imagePath": "/Users/Hi/Coding Projects/Olympic_Islands/assets/maps/objects",
+    "map.height": 100,
+    "map.lastUsedFormat": "tmx",
+    "map.layerDataFormat": "3",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 100,
+    "openFiles": [
+        "main.tmx",
+        "tileset.tsx",
+        "adventure_awaits.tsx",
+        "test.tsx",
+        "objects/deerM.tsx",
+        "objects/chicken.tsx",
+        "objects/lucky_21x21px_NO PADDING.tsx",
+        "objects/stork.tsx"
+    ],
+    "project": "Tiled.tiled-project",
+    "recentFiles": [
+        "objects/stork.tsx",
+        "objects/lucky_21x21px_NO PADDING.tsx",
+        "objects/chicken.tsx",
+        "objects/deerM.tsx",
+        "test.tsx",
+        "adventure_awaits.tsx",
+        "tileset.tsx",
+        "main.tmx",
+        "stork.tsx",
+        "lucky_21x21px_NO PADDING.tsx",
+        "Tiled.tiled-project.tsx",
+        "objects.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.margin": 0,
+    "tileset.spacing": 0,
+    "tileset.tileSize": {
+        "height": 32,
+        "width": 32
+    },
+    "tileset.type": 0
+}

@@ -18,8 +18,7 @@ import java.util.Arrays;
 
 public class DialogueHash {
 
-    //Buckets attribute basically hold the main Array,
-    // and all the values within its buckets are the ArrayLists with the values!
+    //Buckets attribute basically hold the main Array
     public DialogueList[] buckets;
 
     //Constructor
@@ -45,11 +44,11 @@ public class DialogueHash {
     //METHODS OF DIALOGUE HASH
 
 
-    public int calcBucket(String name) {
+    public int calcBucket(String name, int bucketsLength) {
         //Performs hashing index calculation
 
         int hashNumber = Math.abs(name.hashCode()); // This converts the name string into an arbitrary number that stays consistent for each name every runtime
-        return(hashNumber%buckets.length);
+        return(hashNumber%bucketsLength);
 
     }//end of calcBucket
 
@@ -66,7 +65,7 @@ public class DialogueHash {
 
         // Perform linear probing to find the appropriate insertion spot available
 
-        int initialPos = calcBucket(npcToAdd.name);
+        int initialPos = calcBucket(npcToAdd.name, buckets.length);
         int pos = initialPos;
 
         do {
@@ -98,7 +97,7 @@ public class DialogueHash {
     public DialogueList removeFromTable(String name) {
         //Removes a npc from the table based on their name and returns their ref value
 
-        int npcPlace = calcBucket(name);
+        int npcPlace = calcBucket(name, buckets.length);
         DialogueList removedNpc = buckets[npcPlace]; // save removed npc ref value
         buckets[npcPlace] = null; //replace original value with null
 
@@ -111,7 +110,7 @@ public class DialogueHash {
     public DialogueList getNpc(String name) {
         //find and return npc starting dialogue reference value from table based on name
 
-       int initialPos = calcBucket(name); //Initial and expected position to find npc data
+       int initialPos = calcBucket(name, buckets.length); //Initial and expected position to find npc data
        int pos = initialPos;
         // Perform linear probing to find the npc
 
@@ -166,7 +165,7 @@ public class DialogueHash {
     // a file opener function which opens an inputted file path and creates the linked lists for every character, adding the top of the queue to the hash table
     public void loadDialogue() {
 
-        FileHandle file = Gdx.files.internal(""); //initialize the file to read through file handler class
+        FileHandle file = Gdx.files.internal("data/TestDialogues.txt"); //initialize the file to read through file handler class
         BufferedReader reader = new BufferedReader(file.reader()); //wrap file handler inside buffered reader to optimize memory management and read entire liens rather than by character
         String line; // instantiate the holder variable for the read line
 
@@ -185,6 +184,7 @@ public class DialogueHash {
             Choice Name         // Path name for player (can be null if no alternate small talk or branched for the previous dialogue available)
             Dialogue            //the dialogue, split by semicolons if required to appear in separate portions
             Trigger Event       //the trigger event that needs to be satisfied to be able to trigger this dialogue, can be null if none required
+            Causes Event        //the event that the completion of this dialogue satisfies
             //OPTION TWO: small talk alternate paths
             #                   // the number signifies the number of possible small-talks, max of two, MUST ALWAYS precese small talk dialogue
             Speaker
@@ -207,7 +207,7 @@ public class DialogueHash {
                 String name = line.strip().trim(); // According to formatting, the first line in every iteration will be the character name
                 ArrayList<String> dialogue = new ArrayList<>(Arrays.asList(reader.readLine().trim().strip().split(";"))); // get the first dialogue to go with the character name
 
-                DialogueList character = new DialogueList(name, true, dialogue, null, ""); // instantiate character root
+                DialogueList character = new DialogueList(name, true, dialogue, null, "", ""); // instantiate character root
                 DialogueList prevDialogue = character; //assign previous dialogue as the top of the stack/the root
 
                 line = reader.readLine(); //set line as the first line under the character
@@ -225,7 +225,7 @@ public class DialogueHash {
                             String pathName = reader.readLine().trim(); // find sub-path name (what is shown on screen as an option)
                             dialogue = new ArrayList<>(Arrays.asList(reader.readLine().trim().strip().split(";"))); // find and split the dialogue into an array list if it is too long
 
-                            DialogueList smallTalk = new DialogueList(currentSpeakerName, false, dialogue, prevDialogue, ""); // instantiate new object and assign attributes
+                            DialogueList smallTalk = new DialogueList(currentSpeakerName, false, dialogue, prevDialogue, "", ""); // instantiate new object and assign attributes
 
                             prevDialogue.addPath(pathName, smallTalk); // add as sub path to the one before
                         }
@@ -243,8 +243,9 @@ public class DialogueHash {
 
                     dialogue = new ArrayList<>(Arrays.asList(reader.readLine().trim().strip().split(";"))); // determine the new dialogue and format it into array list if it is shown in parts
                     String triggerEvent = reader.readLine().trim(); // set the trigger event variable, can exist for some mainstream dialogues which open after quest is completed
+                    String causesEvent = reader.readLine().trim(); // set the causes event variable
 
-                    DialogueList mainDialogue = new DialogueList(speakerName, true, dialogue, prevDialogue, triggerEvent); // instantiate new dialogue object with the main branch data
+                    DialogueList mainDialogue = new DialogueList(speakerName, true, dialogue, prevDialogue, triggerEvent, causesEvent); // instantiate new dialogue object with the main branch data
 
                     prevDialogue.addPath(pathName, mainDialogue); // add the main path dialogue to the previous dialogue
 

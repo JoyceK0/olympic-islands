@@ -16,6 +16,7 @@ public class DialogueList {
     public boolean done;
     public boolean mainBranch;
     public String triggerEvent;
+    public String causesEvent;
     public ArrayList<String> dialogue;
     public String path1name;
     public String path2name;
@@ -29,13 +30,14 @@ public class DialogueList {
 
     // Constructor
 
-    public DialogueList(String name, boolean mainBranch, ArrayList<String> dialogue, DialogueList prevDialogue, String triggerEvent) {
+    public DialogueList(String name, boolean mainBranch, ArrayList<String> dialogue, DialogueList prevDialogue, String triggerEvent, String causesEvent) {
         this.name = name;
         this.mainBranch = mainBranch;
         this.dialogue = dialogue;
         this.prevDialogue = prevDialogue;
         this.spritePath = name+".png";
         this.triggerEvent = triggerEvent;
+        this.causesEvent = causesEvent;
 
         path1name = null;
         path2name = null;

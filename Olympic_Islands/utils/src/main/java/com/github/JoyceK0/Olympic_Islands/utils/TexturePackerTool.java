@@ -6,9 +6,9 @@ public class TexturePackerTool {
 
     public static void main(String[] args) {
 
-        String inputDir = "";
-        String outputDir = "";
-        String packFileName = "";
+        String inputDir = "Olympic_Islands/assets_raw/objects";
+        String outputDir = "Olympic_Islands/assets/graphics";
+        String packFileName = "objects";
 
         TexturePacker.process(inputDir, outputDir, packFileName);
 

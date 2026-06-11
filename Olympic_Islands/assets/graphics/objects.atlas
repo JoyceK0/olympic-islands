@@ -1,0 +1,328 @@
+
+objects.png
+size: 1024, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+bird/bird
+  rotate: false
+  xy: 518, 798
+  size: 85, 108
+  orig: 85, 108
+  offset: 0, 0
+  index: -1
+boar/Boar Stand
+  rotate: false
+  xy: 518, 910
+  size: 256, 64
+  orig: 256, 64
+  offset: 0, 0
+  index: -1
+cat/cat
+  rotate: false
+  xy: 450, 404
+  size: 110, 25
+  orig: 110, 25
+  offset: 0, 0
+  index: -1
+chicken/Chicken
+  rotate: false
+  xy: 2, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+cow/Cow
+  rotate: false
+  xy: 339, 233
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+deerF/deerF
+  rotate: false
+  xy: 2, 70
+  size: 96, 128
+  orig: 96, 128
+  offset: 0, 0
+  index: -1
+deerM/deerM
+  rotate: false
+  xy: 250, 301
+  size: 96, 128
+  orig: 96, 128
+  offset: 0, 0
+  index: -1
+dog/dog
+  rotate: false
+  xy: 607, 845
+  size: 115, 25
+  orig: 115, 25
+  offset: 0, 0
+  index: -1
+fox/Fox
+  rotate: false
+  xy: 102, 173
+  size: 144, 256
+  orig: 144, 256
+  offset: 0, 0
+  index: -1
+horse/Horse_Idle
+  rotate: false
+  xy: 2, 978
+  size: 780, 33
+  orig: 780, 33
+  offset: 0, 0
+  index: -1
+jelly/jellyLarge
+  rotate: false
+  xy: 786, 979
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
+jelly/jellySmall
+  rotate: false
+  xy: 918, 987
+  size: 48, 24
+  orig: 48, 24
+  offset: 0, 0
+  index: -1
+jelly/jellyTiny
+  rotate: false
+  xy: 739, 890
+  size: 32, 16
+  orig: 32, 16
+  offset: 0, 0
+  index: -1
+lucky/back/tile000
+  rotate: false
+  xy: 407, 276
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+lucky/back/tile001
+  rotate: false
+  xy: 970, 990
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+lucky/back/tile002
+  rotate: false
+  xy: 475, 311
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+lucky/back/tile003
+  rotate: false
+  xy: 995, 990
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+lucky/back/tile005
+  rotate: false
+  xy: 494, 757
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+lucky/back/tile006
+  rotate: false
+  xy: 494, 732
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+lucky/front/tile000
+  rotate: false
+  xy: 70, 45
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+lucky/front/tile001
+  rotate: false
+  xy: 250, 192
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+lucky/front/tile004
+  rotate: false
+  xy: 300, 192
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+lucky/front/tile005
+  rotate: false
+  xy: 682, 820
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+lucky/front/tile007
+  rotate: false
+  xy: 494, 707
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+lucky/idle/tile000
+  rotate: false
+  xy: 450, 311
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+lucky/idle/tile001
+  rotate: false
+  xy: 632, 820
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+lucky/idle/tile002
+  rotate: false
+  xy: 518, 354
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+lucky/left/tile000
+  rotate: false
+  xy: 518, 379
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+lucky/left/tile001
+  rotate: false
+  xy: 70, 20
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+lucky/left/tile002
+  rotate: false
+  xy: 227, 80
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+lucky/left/tile003
+  rotate: false
+  xy: 657, 820
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+lucky/lucky_21x21px_NO PADDING
+  rotate: false
+  xy: 102, 433
+  size: 462, 21
+  orig: 462, 21
+  offset: 0, 0
+  index: -1
+lucky/right/tile000
+  rotate: false
+  xy: 607, 820
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+lucky/right/tile001
+  rotate: false
+  xy: 202, 80
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+lucky/right/tile002
+  rotate: false
+  xy: 407, 251
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+lucky/right/tile003
+  rotate: false
+  xy: 275, 192
+  size: 21, 21
+  orig: 21, 21
+  offset: 0, 0
+  index: -1
+parrot/parrot
+  rotate: false
+  xy: 250, 217
+  size: 85, 80
+  orig: 85, 80
+  offset: 0, 0
+  index: -1
+pig/Pig
+  rotate: false
+  xy: 450, 336
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+player/Player
+  rotate: false
+  xy: 102, 458
+  size: 192, 320
+  orig: 192, 320
+  offset: 0, 0
+  index: -1
+player/Player_Actions
+  rotate: false
+  xy: 2, 202
+  size: 96, 576
+  orig: 96, 576
+  offset: 0, 0
+  index: -1
+reindeerM/reindeerM
+  rotate: false
+  xy: 350, 301
+  size: 96, 128
+  orig: 96, 128
+  offset: 0, 0
+  index: -1
+sheep/Sheep
+  rotate: false
+  xy: 202, 105
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+skeleton/Skeleton
+  rotate: false
+  xy: 298, 458
+  size: 192, 320
+  orig: 192, 320
+  offset: 0, 0
+  index: -1
+slime_green/Slime_Green
+  rotate: false
+  xy: 2, 782
+  size: 512, 192
+  orig: 512, 192
+  offset: 0, 0
+  index: -1
+stork/stork
+  rotate: false
+  xy: 102, 73
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+turtle/turtle
+  rotate: false
+  xy: 607, 874
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1

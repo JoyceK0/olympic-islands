@@ -97,128 +97,135 @@ jelly/jellyTiny
   index: -1
 lucky/back/tile000
   rotate: false
-  xy: 407, 276
+  xy: 518, 379
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
   index: -1
 lucky/back/tile001
   rotate: false
-  xy: 970, 990
+  xy: 70, 19
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
   index: -1
 lucky/back/tile002
   rotate: false
-  xy: 475, 311
+  xy: 227, 80
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
   index: -1
 lucky/back/tile003
   rotate: false
-  xy: 995, 990
+  xy: 300, 192
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
   index: -1
 lucky/back/tile005
   rotate: false
-  xy: 494, 757
+  xy: 494, 707
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
   index: -1
 lucky/back/tile006
   rotate: false
-  xy: 494, 732
+  xy: 494, 682
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
   index: -1
 lucky/front/tile000
   rotate: false
-  xy: 70, 45
+  xy: 450, 311
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
   index: -1
 lucky/front/tile001
   rotate: false
-  xy: 250, 192
+  xy: 632, 820
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
   index: -1
 lucky/front/tile004
   rotate: false
-  xy: 300, 192
+  xy: 494, 757
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
   index: -1
 lucky/front/tile005
   rotate: false
-  xy: 682, 820
+  xy: 494, 732
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
   index: -1
 lucky/front/tile007
   rotate: false
-  xy: 494, 707
+  xy: 494, 657
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
   index: -1
 lucky/idle/tile000
   rotate: false
-  xy: 450, 311
+  xy: 202, 80
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
   index: -1
 lucky/idle/tile001
   rotate: false
-  xy: 632, 820
+  xy: 407, 251
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
   index: -1
 lucky/idle/tile002
   rotate: false
-  xy: 518, 354
+  xy: 275, 192
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
   index: -1
 lucky/left/tile000
   rotate: false
-  xy: 518, 379
+  xy: 250, 192
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
   index: -1
 lucky/left/tile001
   rotate: false
-  xy: 70, 20
+  xy: 475, 311
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
   index: -1
 lucky/left/tile002
   rotate: false
-  xy: 227, 80
+  xy: 995, 990
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
   index: -1
 lucky/left/tile003
   rotate: false
-  xy: 657, 820
+  xy: 682, 820
   size: 21, 21
   orig: 21, 21
+  offset: 0, 0
+  index: -1
+lucky/leftIdle
+  rotate: false
+  xy: 607, 819
+  size: 21, 22
+  orig: 21, 22
   offset: 0, 0
   index: -1
 lucky/lucky_21x21px_NO PADDING
@@ -230,30 +237,37 @@ lucky/lucky_21x21px_NO PADDING
   index: -1
 lucky/right/tile000
   rotate: false
-  xy: 607, 820
+  xy: 407, 276
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
   index: -1
 lucky/right/tile001
   rotate: false
-  xy: 202, 80
+  xy: 970, 990
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
   index: -1
 lucky/right/tile002
   rotate: false
-  xy: 407, 251
+  xy: 518, 354
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
   index: -1
 lucky/right/tile003
   rotate: false
-  xy: 275, 192
+  xy: 657, 820
   size: 21, 21
   orig: 21, 21
+  offset: 0, 0
+  index: -1
+lucky/rightIdle
+  rotate: false
+  xy: 70, 44
+  size: 21, 22
+  orig: 21, 22
   offset: 0, 0
   index: -1
 parrot/parrot

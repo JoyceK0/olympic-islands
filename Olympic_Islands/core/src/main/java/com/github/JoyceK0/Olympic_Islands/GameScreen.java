@@ -2,6 +2,8 @@ package com.github.JoyceK0.Olympic_Islands;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.EntitySystem;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
@@ -67,6 +69,10 @@ public class GameScreen extends ScreenAdapter {
     public void render(float delta) { // delta is the time between two frames
         delta = Math.min(delta, 1/30f);
         this.engine.update(delta); // updates all systems
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.W)){
+            System.out.println("W was just pressed");
+        }
     }
 
     @Override

@@ -13,7 +13,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.JoyceK0.Olympic_Islands.GdxGame;
-import com.github.JoyceK0.Olympic_Islands.asset.AssetService;
 import com.github.JoyceK0.Olympic_Islands.component.Graphic;
 import com.github.JoyceK0.Olympic_Islands.component.Transform;
 
@@ -25,14 +24,14 @@ public class RenderSystem extends SortedIteratingSystem implements Disposable {
     private final Viewport viewport;
     private final OrthographicCamera camera;
 
-    public RenderSystem(Batch batch, Viewport viewport, AssetService assetService) {
+    public RenderSystem(Batch batch, Viewport viewport, OrthographicCamera camera) {
         super(
             Family.all(Transform.class, Graphic.class).get(),
             Comparator.comparing(Transform.MAPPER::get)
         );
         this.batch = batch;
         this.viewport = viewport;
-        this.camera = (OrthographicCamera) viewport.getCamera();
+        this.camera = camera;
         this.mapRenderer = new OrthogonalTiledMapRenderer(null, GdxGame.UNIT_SCALE, this.batch);
     }
 
@@ -44,7 +43,9 @@ public class RenderSystem extends SortedIteratingSystem implements Disposable {
         this.mapRenderer.render();
 
         forceSort(); // sorts the order in which objects are rendered based on their position
+        batch.begin();
         super.update(deltaTime);
+        batch.end();
     }
 
     @Override
@@ -70,12 +71,8 @@ public class RenderSystem extends SortedIteratingSystem implements Disposable {
         );
     }
 
-    public void setMap(TiledMap tiledMap) {
-        this.mapRenderer.setMap(tiledMap);
-    }
+    public void setMap(TiledMap tiledMap) {  this.mapRenderer.setMap(tiledMap);   }
 
     @Override
-    public void dispose() {
-        this.mapRenderer.dispose();
-    }
+    public void dispose() {  this.mapRenderer.dispose();  }
 }

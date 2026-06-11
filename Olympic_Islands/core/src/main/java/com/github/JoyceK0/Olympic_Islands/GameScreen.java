@@ -7,12 +7,17 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.JoyceK0.Olympic_Islands.asset.AssetService;
 import com.github.JoyceK0.Olympic_Islands.asset.MapAsset;
 import com.github.JoyceK0.Olympic_Islands.system.RenderSystem;
+import com.github.JoyceK0.Olympic_Islands.tiled.TiledAshleyConfigurator;
+import com.github.JoyceK0.Olympic_Islands.tiled.TiledService;
+
+import java.util.function.Consumer;
 
 // uses an entity component system structure. An entity is an ID. Then there are components, such as a transform
 // component that has position and scaling of objects. Then there may be another graphic component that has texture and
@@ -26,6 +31,8 @@ public class GameScreen extends ScreenAdapter {
     private final Viewport viewport;
     private final OrthographicCamera camera;
     private final Engine engine; // core class of the Ashley entity component system used for ECS
+    private final TiledService tiledService;
+    private final TiledAshleyConfigurator tiledAshleyConfigurator;
 
     public GameScreen(GdxGame game){
         this.game = game;
@@ -33,15 +40,22 @@ public class GameScreen extends ScreenAdapter {
         this.viewport = game.getViewport();
         this.camera = game.getCamera();
         this.batch = game.getBatch();
+        this.tiledService = new TiledService(this.assetService);
         this.engine = new Engine();
+        this.tiledAshleyConfigurator = new TiledAshleyConfigurator(this.engine, this.assetService);
 
-        this.engine.addSystem(new RenderSystem(this.batch, this.viewport, this.assetService));
+        this.engine.addSystem(new RenderSystem(this.batch, this.viewport, this.camera));
     }
 
     @Override
     public void show() {
-        this.assetService.load(MapAsset.MAIN);
-        this.engine.getSystem(RenderSystem.class).setMap(this.assetService.get(MapAsset.MAIN));
+        Consumer<TiledMap> renderConsumer = this.engine.getSystem(RenderSystem.class)::setMap;
+        this.tiledService.setMapChangeConsumer(renderConsumer);
+        this.tiledService.setLoadObjectConsumer(this.tiledAshleyConfigurator::onLoadObject);
+
+        TiledMap tiledMap = this.tiledService.loadMap(MapAsset.MAIN);
+        this.tiledService.setMap(tiledMap);
+
     }
 
     @Override

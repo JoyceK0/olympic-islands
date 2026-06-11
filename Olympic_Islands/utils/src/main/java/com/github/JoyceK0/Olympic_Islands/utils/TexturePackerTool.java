@@ -1,0 +1,17 @@
+package com.github.JoyceK0.Olympic_Islands.utils;
+
+import com.badlogic.gdx.tools.texturepacker.TexturePacker;
+
+public class TexturePackerTool {
+
+    public static void main(String[] args) {
+
+        String inputDir = "";
+        String outputDir = "";
+        String packFileName = "";
+
+        TexturePacker.process(inputDir, outputDir, packFileName);
+
+    }
+
+}

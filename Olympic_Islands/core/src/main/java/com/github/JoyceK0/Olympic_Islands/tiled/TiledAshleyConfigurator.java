@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.math.Vector2;
 import com.github.JoyceK0.Olympic_Islands.GdxGame;
 import com.github.JoyceK0.Olympic_Islands.asset.AssetService;
+import com.github.JoyceK0.Olympic_Islands.asset.AtlasAsset;
 import com.github.JoyceK0.Olympic_Islands.component.Graphic;
 import com.github.JoyceK0.Olympic_Islands.component.Transform;
 
@@ -60,6 +61,8 @@ public class TiledAshleyConfigurator { // Contains custom logic for the game rat
     }
 
     private TextureRegion getTextureRegion(TiledMapTile tile) {
+        //String atlasAssetStr = tile.getProperties().get("atlasAsset", AtlasAsset.OBJECTS.name(), String.class);
+
         return tile.getTextureRegion();
     }
 

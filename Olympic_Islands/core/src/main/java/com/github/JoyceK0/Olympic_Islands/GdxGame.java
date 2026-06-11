@@ -15,6 +15,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.JoyceK0.Olympic_Islands.asset.AssetService;
+import com.github.JoyceK0.Olympic_Islands.screen.GameScreen;
+import com.github.JoyceK0.Olympic_Islands.screen.LoadingScreen;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,8 +47,8 @@ public class GdxGame extends Game {
         this.glProfiler.enable();
         this.fpsLogger = new FPSLogger();
 
-        addScreen(new GameScreen(this));
-        setScreen(GameScreen.class);
+        addScreen(new LoadingScreen(this, assetService));
+        setScreen(LoadingScreen.class);
 
     }
 
@@ -58,6 +60,10 @@ public class GdxGame extends Game {
 
     public void addScreen(Screen screen) {
         screenCache.put(screen.getClass(),screen);
+    }
+
+    public void removeScreen(Screen screen) {
+        screenCache.remove(screen.getClass());
     }
 
     public void setScreen(Class<? extends Screen> screenClass) {
@@ -80,7 +86,6 @@ public class GdxGame extends Game {
         Gdx.graphics.setTitle("Olympic Games - Draw Calls: " + glProfiler.getDrawCalls()); // names windows, shows draw calls. minimum draw calls is best.
         fpsLogger.log(); // every 1s it will print the fps to console
     }
-
     @Override
     public void dispose() {
         screenCache.values().forEach(Screen::dispose);
@@ -90,6 +95,7 @@ public class GdxGame extends Game {
         this.assetService.debugDiagnostics();
         this.assetService.dispose();
     }
+
     public Batch getBatch() {
         return batch;
     }

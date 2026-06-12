@@ -37,7 +37,7 @@ public class ControllerSystem extends IteratingSystem {
             }
 
         }
-        controller.getReleasedCommands().clear(); // commands have been executed, clear old data
+        controller.getPressedCommands().clear(); // commands have been executed, clear old data
 
 
 

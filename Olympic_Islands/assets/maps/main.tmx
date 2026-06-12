@@ -20,7 +20,11 @@
   <object id="28" gid="562" x="11.2587" y="1584.13" width="60" height="33"/>
  </objectgroup>
  <objectgroup id="5" name="player">
-  <object id="24" gid="559" x="75.4345" y="1553.68" width="21" height="21"/>
+  <object id="24" gid="559" x="75.4345" y="1553.68" width="21" height="21">
+   <properties>
+    <property name="controller" type="bool" value="true"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer id="2" name="foreground" width="100" height="100">
   <data encoding="base64" compression="zlib">

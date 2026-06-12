@@ -7,6 +7,7 @@
  <tile id="5">
   <properties>
    <property name="atlastAsset" value="OBJECTS"/>
+   <property name="speed" type="float" value="4"/>
   </properties>
   <image source="objects/lucky.png" width="21" height="21"/>
  </tile>

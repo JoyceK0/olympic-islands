@@ -99,6 +99,7 @@
         "objects.tsx"
     ],
     "project": "Tiled.tiled-project",
+    "property.type": "float",
     "recentFiles": [
         "objects.tsx",
         "test.tsx",

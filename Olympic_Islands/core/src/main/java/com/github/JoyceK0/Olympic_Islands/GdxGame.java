@@ -1,9 +1,6 @@
 package com.github.JoyceK0.Olympic_Islands;
 
-import com.badlogic.gdx.Application;
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
@@ -15,7 +12,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.JoyceK0.Olympic_Islands.asset.AssetService;
-import com.github.JoyceK0.Olympic_Islands.screen.GameScreen;
 import com.github.JoyceK0.Olympic_Islands.screen.LoadingScreen;
 
 import java.util.HashMap;
@@ -32,12 +28,15 @@ public class GdxGame extends Game {
     private AssetService assetService;
     private GLProfiler glProfiler;
     private FPSLogger fpsLogger;
+    private InputMultiplexer inputMultiplexer;
 
     private final Map<Class<? extends Screen>, Screen> screenCache = new HashMap<>();
 
     @Override
     public void create() {
         Gdx.app.setLogLevel(Application.LOG_DEBUG); // shows all debug messages
+        this.inputMultiplexer = new InputMultiplexer();
+        Gdx.input.setInputProcessor(inputMultiplexer);
 
         this.batch = new SpriteBatch(); // renders graphics to screen
         this.camera = new OrthographicCamera();
@@ -110,5 +109,16 @@ public class GdxGame extends Game {
 
     public OrthographicCamera getCamera() {
         return camera;
+    }
+
+    public void setInputProcessors(InputProcessor... processors) {
+
+        inputMultiplexer.clear(); // clear old processors
+        if(processors==null) return;
+
+        for(InputProcessor processor : processors) {
+            inputMultiplexer.addProcessor(processor);
+        }
+
     }
 }

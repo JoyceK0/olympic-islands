@@ -12,10 +12,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.github.JoyceK0.Olympic_Islands.GdxGame;
 import com.github.JoyceK0.Olympic_Islands.asset.AssetService;
 import com.github.JoyceK0.Olympic_Islands.asset.AtlasAsset;
+import com.github.JoyceK0.Olympic_Islands.component.Controller;
 import com.github.JoyceK0.Olympic_Islands.component.Graphic;
+import com.github.JoyceK0.Olympic_Islands.component.Move;
 import com.github.JoyceK0.Olympic_Islands.component.Transform;
-
-import java.awt.image.BufferedImage;
 
 public class TiledAshleyConfigurator { // Contains custom logic for the game rather than using listeners, coordinates the various services used to run game logic
 
@@ -42,7 +42,24 @@ public class TiledAshleyConfigurator { // Contains custom logic for the game rat
             entity
         );
 
+        addEntityController(tileMapObject, entity); // process and display keyboard movement
+        addEntityMove(tile, entity);
+
         this.engine.addEntity(entity);
+    }
+
+    private void addEntityMove(TiledMapTile tile, Entity entity) {
+        Float speed = tile.getProperties().get("speed", 0f, Float.class);
+        if(speed == 0f) return;
+
+        entity.add(new Move(speed));
+    }
+
+    private void addEntityController(TiledMapTileMapObject tileMapObject, Entity entity) {
+        boolean controller = tileMapObject.getProperties().get("controller", false, Boolean.class);
+        if(!controller) return;
+
+        entity.add(new Controller());
     }
 
     private void addEntityTransform(

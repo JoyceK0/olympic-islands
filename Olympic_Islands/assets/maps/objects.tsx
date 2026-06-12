@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.12.1" name="objects" tilewidth="96" tileheight="128" tilecount="3" columns="0">
+<tileset version="1.10" tiledversion="1.12.1" name="objects" tilewidth="96" tileheight="128" tilecount="4" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <properties>
   <property name="atlasAsset" value="OBJECTS"/>
@@ -21,5 +21,8 @@
    <property name="atlasAsset" value="OBJECTS"/>
   </properties>
   <image source="objects/houseBig.png" width="96" height="128"/>
+ </tile>
+ <tile id="8">
+  <image source="objects/horse.png" width="60" height="33"/>
  </tile>
 </tileset>

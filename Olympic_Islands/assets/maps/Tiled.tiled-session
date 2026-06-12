@@ -12,7 +12,7 @@
         "adventure_awaits.tsx": {
             "dynamicWrapping": true,
             "scaleInDock": 1,
-            "scaleInEditor": 3.3
+            "scaleInEditor": 1.67
         },
         "cat.tsx": {
             "dynamicWrapping": false,
@@ -25,35 +25,47 @@
             "scaleInEditor": 1
         },
         "main.tmx": {
-            "scale": 1.9749,
+            "scale": 1.43,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": -104.30907894070586,
-                "y": 1545.1415261532227
+                "x": -14.685314685314694,
+                "y": -211.53846153846158
             }
         },
         "objects.tsx": {
-            "dynamicWrapping": true,
+            "dynamicWrapping": false,
             "scaleInDock": 1,
-            "scaleInEditor": 1
+            "scaleInEditor": 2.69
         },
         "objects/chicken.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 1,
-            "scaleInEditor": 3.3
+            "scaleInEditor": 0.08
         },
         "objects/deerM.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 1,
-            "scaleInEditor": 3.3
+            "scaleInEditor": 0.08
+        },
+        "objects/horse.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1.67
+        },
+        "objects/lucky.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 2.6619,
+            "scaleInEditor": 1.67
         },
         "objects/lucky_21x21px_NO PADDING.tsx": {
-            "scaleInDock": 1,
-            "scaleInEditor": 3.3
+            "dynamicWrapping": false,
+            "scaleInDock": 3.3412,
+            "scaleInEditor": 3.68
         },
         "objects/stork.tsx": {
+            "dynamicWrapping": false,
             "scaleInDock": 1,
-            "scaleInEditor": 3.3
+            "scaleInEditor": 0.08
         },
         "stork.tsx": {
             "dynamicWrapping": false,
@@ -63,12 +75,12 @@
         "test.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 1.8192,
-            "scaleInEditor": 3.3
+            "scaleInEditor": 2.69
         },
         "tileset.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 2.5155,
-            "scaleInEditor": 3.3
+            "scaleInEditor": 2.69
         }
     },
     "frame.defaultDuration": 200,
@@ -83,27 +95,23 @@
     "openFiles": [
         "main.tmx",
         "tileset.tsx",
-        "adventure_awaits.tsx",
         "test.tsx",
-        "objects/deerM.tsx",
-        "objects/chicken.tsx",
-        "objects/lucky_21x21px_NO PADDING.tsx",
-        "objects/stork.tsx"
+        "objects.tsx"
     ],
     "project": "Tiled.tiled-project",
     "recentFiles": [
-        "objects/stork.tsx",
-        "objects/lucky_21x21px_NO PADDING.tsx",
-        "objects/chicken.tsx",
-        "objects/deerM.tsx",
+        "objects.tsx",
         "test.tsx",
-        "adventure_awaits.tsx",
         "tileset.tsx",
         "main.tmx",
-        "stork.tsx",
-        "lucky_21x21px_NO PADDING.tsx",
-        "Tiled.tiled-project.tsx",
-        "objects.tsx"
+        "adventure_awaits.tsx",
+        "objects/horse.tsx",
+        "objects/lucky.tsx",
+        "objects/deerM.tsx",
+        "objects/stork.tsx",
+        "objects/chicken.tsx",
+        "objects/lucky_21x21px_NO PADDING.tsx",
+        "stork.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.margin": 0,

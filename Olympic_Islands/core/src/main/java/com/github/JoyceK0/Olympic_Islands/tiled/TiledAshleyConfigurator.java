@@ -68,7 +68,7 @@ public class TiledAshleyConfigurator { // Contains custom logic for the game rat
         TextureAtlas textureAtlas = this.assetService.get(atlasAsset);
         FileTextureData textureData = (FileTextureData) tile.getTextureRegion().getTexture().getTextureData();
         String atlasKey = textureData.getFileHandle().nameWithoutExtension();
-        TextureAtlas.AtlasRegion region = textureAtlas.findRegion(atlasKey.substring(0, atlasKey.length() - 2) + "/" + atlasKey);
+        TextureAtlas.AtlasRegion region = textureAtlas.findRegion(atlasKey + "/" + atlasKey);
         if(region != null) {
             return region;
         }

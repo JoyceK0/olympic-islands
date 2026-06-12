@@ -6,7 +6,7 @@
  </properties>
  <tile id="5">
   <properties>
-   <property name="atlastAsset" value="OBJECTS"/>
+   <property name="atlasAsset" value="OBJECTS"/>
    <property name="speed" type="float" value="4"/>
   </properties>
   <image source="objects/lucky.png" width="21" height="21"/>
@@ -24,6 +24,9 @@
   <image source="objects/houseBig.png" width="96" height="128"/>
  </tile>
  <tile id="8">
+  <properties>
+   <property name="atlasAsset" value="OBJECTS"/>
+  </properties>
   <image source="objects/horse.png" width="60" height="33"/>
  </tile>
 </tileset>

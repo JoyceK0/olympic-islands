@@ -6,6 +6,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
 import com.github.JoyceK0.Olympic_Islands.GdxGame;
 import com.github.JoyceK0.Olympic_Islands.asset.MapAsset;
@@ -36,14 +38,16 @@ public class GameScreen extends ScreenAdapter {
 
     public GameScreen(GdxGame game){
         this.game = game;
-        this.tiledService = new TiledService(game.getAssetService());
+        this.physicWorld = new World(Vector2.Zero, true);
+        this.physicWorld.setAutoClearForces(false);
+        this.tiledService = new TiledService(game.getAssetService(), this.physicWorld);
         this.engine = new Engine();
         this.tiledAshleyConfigurator = new TiledAshleyConfigurator(this.engine, game.getAssetService());
         this.keyboardController = new KeyboardController(GameControllerState.class, engine);
 
         this.engine.addSystem(new ControllerSystem());
         this.engine.addSystem(new MoveSystem());
-        this.engine.addSystem(new CameraSystem()); //before render
+        this.engine.addSystem(new CameraSystem(game.getCamera())); //before render
         this.engine.addSystem(new RenderSystem(game.getBatch(), game.getViewport(), game.getCamera()));
     }
 
@@ -54,7 +58,8 @@ public class GameScreen extends ScreenAdapter {
         keyboardController.setActiveState(GameControllerState.class);
 
         Consumer<TiledMap> renderConsumer = this.engine.getSystem(RenderSystem.class)::setMap;
-        this.tiledService.setMapChangeConsumer(renderConsumer);
+        Consumer<TiledMap> cameraConsumer = this.engine.getSystem(CameraSystem.class)::setMap;
+        this.tiledService.setMapChangeConsumer(renderConsumer.andThen(cameraConsumer));
         this.tiledService.setLoadObjectConsumer(this.tiledAshleyConfigurator::onLoadObject);
 
         TiledMap tiledMap = this.tiledService.loadMap(MapAsset.MAIN);

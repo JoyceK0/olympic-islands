@@ -12,10 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.github.JoyceK0.Olympic_Islands.GdxGame;
 import com.github.JoyceK0.Olympic_Islands.asset.AssetService;
 import com.github.JoyceK0.Olympic_Islands.asset.AtlasAsset;
-import com.github.JoyceK0.Olympic_Islands.component.Controller;
-import com.github.JoyceK0.Olympic_Islands.component.Graphic;
-import com.github.JoyceK0.Olympic_Islands.component.Move;
-import com.github.JoyceK0.Olympic_Islands.component.Transform;
+import com.github.JoyceK0.Olympic_Islands.component.*;
 
 public class TiledAshleyConfigurator { // Contains custom logic for the game rather than using listeners, coordinates the various services used to run game logic
 
@@ -45,7 +42,17 @@ public class TiledAshleyConfigurator { // Contains custom logic for the game rat
         addEntityController(tileMapObject, entity); // process and display keyboard movement
         addEntityMove(tile, entity);
 
+
+        addEntityCameraFollow(tileMapObject, entity);
+
         this.engine.addEntity(entity);
+    }
+
+    private void addEntityCameraFollow(TiledMapTile mapObject, Entity entity){
+        boolean camFollow = mapObject.getProperties().get("camFollow", false,Boolean.class);
+        if(!camFollow) return;
+        entity.add(new CameraFollow());
+
     }
 
     private void addEntityMove(TiledMapTile tile, Entity entity) {

@@ -1,5 +1,5 @@
 {
-    "activeFile": "main.tmx",
+    "activeFile": "objects.tsx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -25,11 +25,11 @@
             "scaleInEditor": 1
         },
         "main.tmx": {
-            "scale": 1.43,
+            "scale": 2.99,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": -14.685314685314694,
-                "y": -211.53846153846158
+                "x": 56.856187290969885,
+                "y": 1501.839464882943
             }
         },
         "objects.tsx": {
@@ -99,12 +99,12 @@
         "objects.tsx"
     ],
     "project": "Tiled.tiled-project",
-    "property.type": "bool",
+    "property.type": "float",
     "recentFiles": [
-        "objects.tsx",
-        "test.tsx",
-        "tileset.tsx",
         "main.tmx",
+        "tileset.tsx",
+        "test.tsx",
+        "objects.tsx",
         "adventure_awaits.tsx",
         "objects/horse.tsx",
         "objects/lucky.tsx",

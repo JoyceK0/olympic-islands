@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="30">
+ <properties>
+  <property name="music" value="TOWN"/>
+ </properties>
  <tileset firstgid="1" source="tileset.tsx"/>
  <tileset firstgid="193" source="test.tsx"/>
  <tileset firstgid="554" source="objects.tsx"/>
@@ -20,6 +23,7 @@
   <object id="28" gid="562" x="11.2587" y="1584.13" width="60" height="33"/>
   <object id="29" gid="559" x="70.597" y="1538.86" width="21" height="21">
    <properties>
+    <property name="camFollow" type="bool" value="true"/>
     <property name="controller" type="bool" value="true"/>
    </properties>
   </object>

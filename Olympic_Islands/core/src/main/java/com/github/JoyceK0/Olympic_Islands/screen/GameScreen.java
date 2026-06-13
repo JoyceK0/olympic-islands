@@ -14,10 +14,7 @@ import com.github.JoyceK0.Olympic_Islands.asset.MapAsset;
 import com.github.JoyceK0.Olympic_Islands.component.Move;
 import com.github.JoyceK0.Olympic_Islands.input.GameControllerState;
 import com.github.JoyceK0.Olympic_Islands.input.KeyboardController;
-import com.github.JoyceK0.Olympic_Islands.system.CameraSystem;
-import com.github.JoyceK0.Olympic_Islands.system.ControllerSystem;
-import com.github.JoyceK0.Olympic_Islands.system.MoveSystem;
-import com.github.JoyceK0.Olympic_Islands.system.RenderSystem;
+import com.github.JoyceK0.Olympic_Islands.system.*;
 import com.github.JoyceK0.Olympic_Islands.tiled.TiledAshleyConfigurator;
 import com.github.JoyceK0.Olympic_Islands.tiled.TiledService;
 
@@ -48,6 +45,9 @@ public class GameScreen extends ScreenAdapter {
         this.engine.addSystem(new ControllerSystem());
         this.engine.addSystem(new MoveSystem());
         this.engine.addSystem(new CameraSystem(game.getCamera())); //before render
+        this.engine.addSystem(new FsmSystem());
+        this.engine.addSystem(new FacingSystem());
+        this.engine.addSystem(new AnimationSystem((game.getAssetService())));
         this.engine.addSystem(new RenderSystem(game.getBatch(), game.getViewport(), game.getCamera()));
     }
 

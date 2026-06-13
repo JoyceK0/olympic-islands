@@ -3,6 +3,8 @@ package com.github.JoyceK0.Olympic_Islands.tiled;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FileTextureData;
@@ -12,6 +14,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.github.JoyceK0.Olympic_Islands.GdxGame;
 import com.github.JoyceK0.Olympic_Islands.asset.AssetService;
 import com.github.JoyceK0.Olympic_Islands.asset.AtlasAsset;
+import com.github.JoyceK0.Olympic_Islands.component.Facing.FacingDirection;
+import com.github.JoyceK0.Olympic_Islands.component.Animation2D.AnimationType;
 import com.github.JoyceK0.Olympic_Islands.component.*;
 
 public class TiledAshleyConfigurator { // Contains custom logic for the game rather than using listeners, coordinates the various services used to run game logic
@@ -41,11 +45,27 @@ public class TiledAshleyConfigurator { // Contains custom logic for the game rat
 
         addEntityController(tileMapObject, entity); // process and display keyboard movement
         addEntityMove(tile, entity);
+        addEntityAnimation(tile, entity);
+        entity.add(new Facing(FacingDirection.DOWN));
+        entity.add(new Fsm(entity));
 
 
         addEntityCameraFollow(tileMapObject, entity);
 
         this.engine.addEntity(entity);
+    }
+
+    private void addEntityAnimation(TiledMapTile tile, Entity entity) {
+        String animationStr = tile.getProperties().get("animation", "", String.class);
+        if (animationStr.isBlank()) return; // return if object has no animation
+
+        AnimationType animationType = AnimationType.valueOf(animationStr);
+        String atlasAssetStr = tile.getProperties().get("atlasAsset", "OBJECTS", String.class);
+        AtlasAsset atlasAsset = AtlasAsset.valueOf(atlasAssetStr);
+        FileTextureData textureData = (FileTextureData) tile.getTextureRegion().getTexture().getTextureData();
+        String atlasKey = textureData.getFileHandle().nameWithoutExtension();
+        float speed = tile.getProperties().get("animationSpeed", 0f, float.class);
+        entity.add(new Animation2D(atlasAsset, atlasKey, animationType, PlayMode.LOOP, speed));
     }
 
     private void addEntityCameraFollow(TiledMapTile mapObject, Entity entity){

@@ -3,9 +3,11 @@ package com.github.JoyceK0.Olympic_Islands.tiled;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -31,13 +33,14 @@ public class TiledService {
     // continuously in the main game render() loop. This is great for scalability and increasing complexity. This uses Ashley.
     private Consumer<TiledMap> mapChangeConsumer;
     private Consumer<TiledMapTileMapObject> loadObjectConsumer;
+    private LoadTileConsumer loadTileConsumer;
 
-    public TiledService(AssetService assetService) { // Constructor, sets up default values for all attributes
+    public TiledService(AssetService assetService, World physicWorld) { // Constructor, sets up default values for all attributes
         this.assetService = assetService;
         this.mapChangeConsumer = null;
         this.loadObjectConsumer = null;
         this.currentMap = null;
-        //this.loadTileConsumer = null;
+        this.loadTileConsumer = null;
         this.physicWorld = physicWorld;
     }
 
@@ -71,6 +74,20 @@ public class TiledService {
         spawnMapBoundary(tiledMap);
     }
 
+    private void loadTileLayer(TiledMapTileLayer tileLayer) {
+
+        if(loadTileConsumer == null) return; // don't need to do anything if consumer not specified
+
+        for(int y = 0; y < tileLayer.getHeight(); y++) {
+            for(int x = 0; x < tileLayer.getWidth(); x++) {
+                TiledMapTileLayer.Cell cell = tileLayer.getCell(x, y); // find the tile and its x and y coordinates
+                if(cell==null) continue; // no action required
+                loadTileConsumer.accept(cell.getTile(), x, y);
+            }
+        }
+
+    }
+
     private void spawnMapBoundary(TiledMap tiledMap) {
         Integer width = tiledMap.getProperties().get("width", 0, Integer.class);
         Integer tileW = tiledMap.getProperties().get("tilewidth", 0, Integer.class);
@@ -86,30 +103,31 @@ public class TiledService {
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.position.setZero();
         bodyDef.fixedRotation = true;
-        physicWorld.createBody(bodyDef);
+        Body body = physicWorld.createBody(bodyDef);
+        body.setUserData("environment");
 
         //left edge
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(boxThickness, halfH, new Vector2(-boxThickness, halfH),0f);
-        body.createFixure(shape, 0f).setFriction(0f);
+        body.createFixture(shape, 0f).setFriction(0f);
         shape.dispose();
 
         //right edge
         shape = new PolygonShape();
         shape.setAsBox(boxThickness, halfH, new Vector2(mapW+boxThickness, halfH),0f);
-        body.createFixure(shape, 0f).setFriction(0f);
+        body.createFixture(shape, 0f).setFriction(0f);
         shape.dispose();
 
         //bottom edge
         shape = new PolygonShape();
         shape.setAsBox(halfW, boxThickness, new Vector2(halfW, -boxThickness),0f);
-        body.createFixure(shape, 0f).setFriction(0f);
+        body.createFixture(shape, 0f).setFriction(0f);
         shape.dispose();
 
         //top edge
-        PolygonShape shape = new PolygonShape();
+        shape = new PolygonShape();
         shape.setAsBox(halfW, boxThickness, new Vector2(halfW, mapH+boxThickness),0f);
-        body.createFixure(shape, 0f).setFriction(0f);
+        body.createFixture(shape, 0f).setFriction(0f);
         shape.dispose();
     }
 
@@ -132,6 +150,15 @@ public class TiledService {
 
     public void setLoadObjectConsumer(Consumer<TiledMapTileMapObject> loadObjectConsumer) {
         this.loadObjectConsumer = loadObjectConsumer;
+    }
+
+    public void setLoadTileConsumer(LoadTileConsumer loadTileConsumer) {
+        this.loadTileConsumer = loadTileConsumer;
+    }
+
+    @FunctionalInterface
+    public interface LoadTileConsumer {
+        void accept(TiledMapTile tile, float x, float y);
     }
 
 }

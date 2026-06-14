@@ -31,6 +31,7 @@ public class GameScreen extends ScreenAdapter {
     private final TiledAshleyConfigurator tiledAshleyConfigurator;
     private final KeyboardController keyboardController;
     private final GdxGame game;
+    private final World physicWorld;
 
 
     public GameScreen(GdxGame game){
@@ -39,16 +40,19 @@ public class GameScreen extends ScreenAdapter {
         this.physicWorld.setAutoClearForces(false);
         this.tiledService = new TiledService(game.getAssetService(), this.physicWorld);
         this.engine = new Engine();
-        this.tiledAshleyConfigurator = new TiledAshleyConfigurator(this.engine, game.getAssetService());
+        this.tiledAshleyConfigurator = new TiledAshleyConfigurator(this.engine, game.getAssetService(), physicWorld);
         this.keyboardController = new KeyboardController(GameControllerState.class, engine);
 
         this.engine.addSystem(new ControllerSystem());
-        this.engine.addSystem(new MoveSystem());
+        this.engine.addSystem(new PhysicMoveSystem());
         this.engine.addSystem(new CameraSystem(game.getCamera())); //before render
         this.engine.addSystem(new FsmSystem());
         this.engine.addSystem(new FacingSystem());
+        this.engine.addSystem(new PhysicsSystem(physicWorld, 1/60f)); //lower the interval/ refresh rate for physics the more accurate the physics implementation in
         this.engine.addSystem(new AnimationSystem((game.getAssetService())));
         this.engine.addSystem(new RenderSystem(game.getBatch(), game.getViewport(), game.getCamera()));
+        this.engine.addSystem(new PhysicsDebugRenderSystem(physicWorld, game.getCamera()));
+
     }
 
     @Override
@@ -61,6 +65,7 @@ public class GameScreen extends ScreenAdapter {
         Consumer<TiledMap> cameraConsumer = this.engine.getSystem(CameraSystem.class)::setMap;
         this.tiledService.setMapChangeConsumer(renderConsumer.andThen(cameraConsumer));
         this.tiledService.setLoadObjectConsumer(this.tiledAshleyConfigurator::onLoadObject);
+        this.tiledService.setLoadTileConsumer(tiledAshleyConfigurator::onLoadTile);
 
         TiledMap tiledMap = this.tiledService.loadMap(MapAsset.MAIN);
         this.tiledService.setMap(tiledMap);
@@ -85,5 +90,6 @@ public class GameScreen extends ScreenAdapter {
                 disposableSystem.dispose();
             }
         }
+        this.physicWorld.dispose(); // also needs to clear files as it uses JNI (java native interface) to bridge the box-2d implementation from C to Java
     }
 }

@@ -12,10 +12,12 @@ import com.github.JoyceK0.Olympic_Islands.input.Command;
 public class ControllerSystem extends IteratingSystem {
 
     private final AudioService audioService;
+    private final DialogueSystem dialogueSystem;
 
-    public ControllerSystem(AudioService audioService) {
+    public ControllerSystem(AudioService audioService, DialogueSystem dialogueSystem) {
         super(Family.all(Controller.class).get()); // get all entities with controller component attached (meaning player should be able to control that)
         this.audioService = audioService;
+        this.dialogueSystem = dialogueSystem;
     }
 
     @Override
@@ -67,6 +69,12 @@ public class ControllerSystem extends IteratingSystem {
 
     private void entityToggle(Entity entity) {
         audioService.playSound(SoundAsset.CLICK);
+        // For testing purposes right now, let's target your "Stolk" NPC structure:
+        String targetNpcName = "Stolk";
+
+        if (targetNpcName != null) {
+            dialogueSystem.startDialogue(targetNpcName);
+        }
     }
 
     private void moveEntity(Entity entity, float directionX, float directionY) {

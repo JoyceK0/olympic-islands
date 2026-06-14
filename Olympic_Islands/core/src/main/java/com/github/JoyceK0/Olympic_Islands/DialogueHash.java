@@ -205,13 +205,15 @@ public class DialogueHash {
             while((line = reader.readLine()) != null) { // Keep running till the end of the file is reached
 
                 String name = line.strip().trim(); // According to formatting, the first line in every iteration will be the character name
-                ArrayList<String> dialogue = new ArrayList<>(Arrays.asList(reader.readLine().trim().strip().split(";"))); // get the first dialogue to go with the character name
+                System.out.println("name: " + line);
+                line = reader.readLine();
+                ArrayList<String> dialogue = new ArrayList<>(Arrays.asList(line.trim().strip().split(";"))); // get the first dialogue to go with the character name
 
                 DialogueList character = new DialogueList(name, true, dialogue, null, "", ""); // instantiate character root
                 DialogueList prevDialogue = character; //assign previous dialogue as the top of the stack/the root
 
                 line = reader.readLine(); //set line as the first line under the character
-
+                System.out.println("num/hash: "+line);
 
                 while(line!=null && !(line.trim().isEmpty())) { // now keep reading till encountering an empty line which separates different character dialogues
 
@@ -235,6 +237,7 @@ public class DialogueHash {
                     }
 
                     String speakerName = reader.readLine().trim(); // set the name of the character speaking as of the moment
+                    System.out.println("speakerName: "+speakerName);
 
                     String pathName; //instantiate pathName variable and then check to see if null. Can be null if no alternate paths exist to the dialogue.
                     if ((line = reader.readLine().trim()).equals("null")) { // if it was null, then the pathName also remains as null
@@ -242,7 +245,8 @@ public class DialogueHash {
                     else { pathName = line; } // else set as the pathName
 
                     dialogue = new ArrayList<>(Arrays.asList(reader.readLine().trim().strip().split(";"))); // determine the new dialogue and format it into array list if it is shown in parts
-                    String triggerEvent = reader.readLine().trim(); // set the trigger event variable, can exist for some mainstream dialogues which open after quest is completed
+                    String triggerEvent = reader.readLine(); // set the trigger event variable, can exist for some mainstream dialogues which open after quest is completed
+                    System.out.println("triggerEvent: " + triggerEvent);
                     String causesEvent = reader.readLine().trim(); // set the causes event variable
 
                     DialogueList mainDialogue = new DialogueList(speakerName, true, dialogue, prevDialogue, triggerEvent, causesEvent); // instantiate new dialogue object with the main branch data
@@ -252,6 +256,7 @@ public class DialogueHash {
                     prevDialogue = mainDialogue; // set the previous as the current main dialogue in order to move onto the next set
 
                     line = reader.readLine(); // increment the line reader to check if the character's dialogues are finished (empty line) or document ended (null value)
+                    System.out.println("lineReaderCheck: " + line);
 
                 }
 

@@ -9,6 +9,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
+import com.github.JoyceK0.Olympic_Islands.DialogueHash;
+import com.github.JoyceK0.Olympic_Islands.EventMap;
 import com.github.JoyceK0.Olympic_Islands.GdxGame;
 import com.github.JoyceK0.Olympic_Islands.asset.MapAsset;
 import com.github.JoyceK0.Olympic_Islands.audio.AudioService;
@@ -34,6 +36,9 @@ public class GameScreen extends ScreenAdapter {
     private final GdxGame game;
     private final World physicWorld;
     private final AudioService audioService;
+    private final DialogueHash dialogueHash;
+    private final EventMap eventMap;
+    private final DialogueSystem dialogueSystem;
 
 
     public GameScreen(GdxGame game){
@@ -46,7 +51,13 @@ public class GameScreen extends ScreenAdapter {
         this.keyboardController = new KeyboardController(GameControllerState.class, engine);
         this.audioService = game.getAudioService();
 
-        this.engine.addSystem(new ControllerSystem(game.getAudioService()));
+        this.dialogueHash = new DialogueHash(50);
+        dialogueHash.loadDialogue();
+        this.eventMap = new EventMap(50);
+        eventMap.loadEvents();
+        this.dialogueSystem = new DialogueSystem(this.game, dialogueHash, eventMap, this.keyboardController);
+
+        this.engine.addSystem(new ControllerSystem(game.getAudioService(), dialogueSystem));
         this.engine.addSystem(new PhysicMoveSystem());
         this.engine.addSystem(new CameraSystem(game.getCamera())); //before render
         this.engine.addSystem(new FsmSystem());
@@ -55,6 +66,7 @@ public class GameScreen extends ScreenAdapter {
         this.engine.addSystem(new AnimationSystem((game.getAssetService())));
         this.engine.addSystem(new RenderSystem(game.getBatch(), game.getViewport(), game.getCamera()));
         this.engine.addSystem(new PhysicsDebugRenderSystem(physicWorld, game.getCamera()));
+        this.engine.addSystem(dialogueSystem);
 
     }
 

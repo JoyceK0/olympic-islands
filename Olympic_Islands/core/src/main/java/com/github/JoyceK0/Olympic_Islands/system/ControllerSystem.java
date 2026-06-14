@@ -3,14 +3,19 @@ package com.github.JoyceK0.Olympic_Islands.system;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.github.JoyceK0.Olympic_Islands.asset.SoundAsset;
+import com.github.JoyceK0.Olympic_Islands.audio.AudioService;
 import com.github.JoyceK0.Olympic_Islands.component.Controller;
 import com.github.JoyceK0.Olympic_Islands.component.Move;
 import com.github.JoyceK0.Olympic_Islands.input.Command;
 
 public class ControllerSystem extends IteratingSystem {
 
-    public ControllerSystem() {
+    private final AudioService audioService;
+
+    public ControllerSystem(AudioService audioService) {
         super(Family.all(Controller.class).get()); // get all entities with controller component attached (meaning player should be able to control that)
+        this.audioService = audioService;
     }
 
     @Override
@@ -33,6 +38,7 @@ public class ControllerSystem extends IteratingSystem {
                 case DOWN -> moveEntity(entity, 0f, -1f);
                 case LEFT -> moveEntity(entity, -1f, 0f);
                 case RIGHT -> moveEntity(entity, 1f, 0f);
+                case SELECT -> entityToggle(entity);
 
             }
 
@@ -57,6 +63,10 @@ public class ControllerSystem extends IteratingSystem {
 
         }
         controller.getReleasedCommands().clear(); // commands have been executed, clear old data
+    }
+
+    private void entityToggle(Entity entity) {
+        audioService.playSound(SoundAsset.CLICK);
     }
 
     private void moveEntity(Entity entity, float directionX, float directionY) {

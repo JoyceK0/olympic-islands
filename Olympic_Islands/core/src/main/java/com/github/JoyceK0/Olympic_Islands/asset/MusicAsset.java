@@ -5,7 +5,7 @@ import com.badlogic.gdx.audio.Music;
 
 public enum MusicAsset implements Asset<Music>{
 
-    OVERWORLD("overworld.ogg");
+    TOWN("overworld.ogg");
 
     private final AssetDescriptor<Music> descriptor;
 

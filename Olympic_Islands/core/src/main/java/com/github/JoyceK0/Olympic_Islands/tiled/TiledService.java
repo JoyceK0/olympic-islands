@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.github.JoyceK0.Olympic_Islands.GdxGame;
 import com.github.JoyceK0.Olympic_Islands.asset.AssetService;
@@ -53,6 +54,14 @@ public class TiledService {
     public void setMap(TiledMap map){ // sets up the tiled map and ensures it is a valid map, not a null value before assignment
         if(this.currentMap != null) {
             this.assetService.unload(this.currentMap.getProperties().get("mapAsset", MapAsset.class));
+
+            Array<Body> bodies = new Array<>();
+            physicWorld.getBodies(bodies);
+            for(Body body : bodies) {
+                if("environment".equals(body.getUserData())) {
+                    physicWorld.destroyBody(body); // cleanup physics bodies unliked to entities like background collision
+                }
+            }
         }
 
         this.currentMap = map;

@@ -634,174 +634,174 @@ jellySmall/jellyTiny01
   orig: 16, 16
   offset: 0, 0
   index: -1
-lucky/idle_down00
+lucky/idle_down
   rotate: false
   xy: 505, 240
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
-  index: -1
-lucky/idle_down01
+  index: 0
+lucky/idle_down
   rotate: false
   xy: 530, 240
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
-  index: -1
-lucky/idle_down02
+  index: 1
+lucky/idle_down
   rotate: false
   xy: 555, 240
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
-  index: -1
-lucky/idle_left00
+  index: 2
+lucky/idle_left
   rotate: false
   xy: 267, 2
   size: 21, 22
   orig: 21, 22
   offset: 0, 0
-  index: -1
-lucky/idle_right00
+  index: 0
+lucky/idle_right
   rotate: false
   xy: 292, 2
   size: 21, 22
   orig: 21, 22
   offset: 0, 0
-  index: -1
-lucky/idle_up00
+  index: 0
+lucky/idle_up
   rotate: false
   xy: 580, 240
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
-  index: -1
-lucky/walk_down00
+  index: 0
+lucky/walk_down
   rotate: false
   xy: 605, 240
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
-  index: -1
-lucky/walk_down01
+  index: 0
+lucky/walk_down
   rotate: false
   xy: 630, 240
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
-  index: -1
-lucky/walk_down02
+  index: 1
+lucky/walk_down
   rotate: false
   xy: 655, 240
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
-  index: -1
-lucky/walk_down03
+  index: 2
+lucky/walk_down
   rotate: false
   xy: 680, 240
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
-  index: -1
-lucky/walk_down04
+  index: 3
+lucky/walk_down
   rotate: false
   xy: 705, 240
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
-  index: -1
-lucky/walk_left00
+  index: 4
+lucky/walk_left
   rotate: false
   xy: 730, 240
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
-  index: -1
-lucky/walk_left01
+  index: 0
+lucky/walk_left
   rotate: false
   xy: 755, 240
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
-  index: -1
-lucky/walk_left02
+  index: 1
+lucky/walk_left
   rotate: false
   xy: 780, 240
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
-  index: -1
-lucky/walk_left03
+  index: 2
+lucky/walk_left
   rotate: false
   xy: 805, 240
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
-  index: -1
-lucky/walk_right00
+  index: 3
+lucky/walk_right
   rotate: false
   xy: 830, 240
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
-  index: -1
-lucky/walk_right01
+  index: 0
+lucky/walk_right
   rotate: false
   xy: 855, 240
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
-  index: -1
-lucky/walk_right02
+  index: 1
+lucky/walk_right
   rotate: false
   xy: 880, 240
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
-  index: -1
-lucky/walk_right03
+  index: 2
+lucky/walk_right
   rotate: false
   xy: 905, 240
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
-  index: -1
-lucky/walk_up00
+  index: 3
+lucky/walk_up
   rotate: false
   xy: 930, 240
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
-  index: -1
-lucky/walk_up01
+  index: 0
+lucky/walk_up
   rotate: false
   xy: 309, 204
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
-  index: -1
-lucky/walk_up02
+  index: 1
+lucky/walk_up
   rotate: false
   xy: 296, 179
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
-  index: -1
-lucky/walk_up03
+  index: 2
+lucky/walk_up
   rotate: false
   xy: 321, 179
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
-  index: -1
-lucky/walk_up04
+  index: 3
+lucky/walk_up
   rotate: false
   xy: 303, 154
   size: 21, 21
   orig: 21, 21
   offset: 0, 0
-  index: -1
+  index: 4
 parrot/parrot00
   rotate: false
   xy: 96, 112

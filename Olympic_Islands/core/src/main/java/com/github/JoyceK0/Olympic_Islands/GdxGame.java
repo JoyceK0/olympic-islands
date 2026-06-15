@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.github.JoyceK0.Olympic_Islands.asset.AssetService;
+import com.github.JoyceK0.Olympic_Islands.audio.AudioService;
 import com.github.JoyceK0.Olympic_Islands.screen.LoadingScreen;
 
 import java.util.HashMap;
@@ -29,6 +30,7 @@ public class GdxGame extends Game {
     private GLProfiler glProfiler;
     private FPSLogger fpsLogger;
     private InputMultiplexer inputMultiplexer;
+    private AudioService audioService;
 
     private final Map<Class<? extends Screen>, Screen> screenCache = new HashMap<>();
 
@@ -45,6 +47,7 @@ public class GdxGame extends Game {
         this.glProfiler = new GLProfiler(Gdx.graphics);
         this.glProfiler.enable();
         this.fpsLogger = new FPSLogger();
+        this.audioService = new AudioService(assetService);
 
         addScreen(new LoadingScreen(this, assetService));
         setScreen(LoadingScreen.class);
@@ -120,5 +123,9 @@ public class GdxGame extends Game {
             inputMultiplexer.addProcessor(processor);
         }
 
+    }
+
+    public AudioService getAudioService() {
+        return audioService;
     }
 }

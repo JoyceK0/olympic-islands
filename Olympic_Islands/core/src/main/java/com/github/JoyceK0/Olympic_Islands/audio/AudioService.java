@@ -20,7 +20,7 @@ public class AudioService {
         this.currentMusic = null;
         this.currentMusicAsset = null;
         this.musicVolume = 0.5f; // value between 0 and 1 for volume, keeping at half of original volume
-        this.soundVolume = 0.33f; // A third of original volume
+        this.soundVolume = 1f; // half of original volume
     }
 
     public void setMusicVolume(float musicVolume) {

@@ -9,8 +9,11 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Disposable;
+import com.github.JoyceK0.Olympic_Islands.DialogueHash;
+import com.github.JoyceK0.Olympic_Islands.EventMap;
 import com.github.JoyceK0.Olympic_Islands.GdxGame;
 import com.github.JoyceK0.Olympic_Islands.asset.MapAsset;
+import com.github.JoyceK0.Olympic_Islands.audio.AudioService;
 import com.github.JoyceK0.Olympic_Islands.component.Move;
 import com.github.JoyceK0.Olympic_Islands.input.GameControllerState;
 import com.github.JoyceK0.Olympic_Islands.input.KeyboardController;
@@ -32,6 +35,10 @@ public class GameScreen extends ScreenAdapter {
     private final KeyboardController keyboardController;
     private final GdxGame game;
     private final World physicWorld;
+    private final AudioService audioService;
+    private final DialogueHash dialogueHash;
+    private final EventMap eventMap;
+    private final DialogueSystem dialogueSystem;
 
 
     public GameScreen(GdxGame game){
@@ -42,8 +49,15 @@ public class GameScreen extends ScreenAdapter {
         this.engine = new Engine();
         this.tiledAshleyConfigurator = new TiledAshleyConfigurator(this.engine, game.getAssetService(), physicWorld);
         this.keyboardController = new KeyboardController(GameControllerState.class, engine);
+        this.audioService = game.getAudioService();
 
-        this.engine.addSystem(new ControllerSystem());
+        this.dialogueHash = new DialogueHash(50);
+        dialogueHash.loadDialogue();
+        this.eventMap = new EventMap(50);
+        eventMap.loadEvents();
+        this.dialogueSystem = new DialogueSystem(this.game, dialogueHash, eventMap, this.keyboardController);
+
+        this.engine.addSystem(new ControllerSystem(game.getAudioService(), dialogueSystem));
         this.engine.addSystem(new PhysicMoveSystem());
         this.engine.addSystem(new CameraSystem(game.getCamera())); //before render
         this.engine.addSystem(new FsmSystem());
@@ -52,6 +66,7 @@ public class GameScreen extends ScreenAdapter {
         this.engine.addSystem(new AnimationSystem((game.getAssetService())));
         this.engine.addSystem(new RenderSystem(game.getBatch(), game.getViewport(), game.getCamera()));
         this.engine.addSystem(new PhysicsDebugRenderSystem(physicWorld, game.getCamera()));
+        this.engine.addSystem(dialogueSystem);
 
     }
 
@@ -63,7 +78,8 @@ public class GameScreen extends ScreenAdapter {
 
         Consumer<TiledMap> renderConsumer = this.engine.getSystem(RenderSystem.class)::setMap;
         Consumer<TiledMap> cameraConsumer = this.engine.getSystem(CameraSystem.class)::setMap;
-        this.tiledService.setMapChangeConsumer(renderConsumer.andThen(cameraConsumer));
+        Consumer<TiledMap> audioConsumer = audioService::setMap;
+        this.tiledService.setMapChangeConsumer(renderConsumer.andThen(cameraConsumer).andThen(audioConsumer));
         this.tiledService.setLoadObjectConsumer(this.tiledAshleyConfigurator::onLoadObject);
         this.tiledService.setLoadTileConsumer(tiledAshleyConfigurator::onLoadTile);
 

@@ -1,18 +1,20 @@
-package com.github.JoyceK0.Olympic_Islands;
+package com.github.JoyceK0.Olympic_Islands.dialogue;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 
 /*
-Class Description:
 This class is the event handler, and it contains all the trigger events for the game.
 Certain objects can only be interacted with if certain events occurred, therefore
 this hash map contains and organizes all this data for easy access.
+Although this is not fully implemented in the game itself besides the dialogues, it provides
+the basic framework for the game, improving scalability dractically for all sorts fo complex interactions.
  */
 
-public class EventMap extends DialogueHash{
+public class EventMap extends DialogueHash {
 
     public Event[] buckets;
     //key is the event name string and the value is a event value signifying completion of event

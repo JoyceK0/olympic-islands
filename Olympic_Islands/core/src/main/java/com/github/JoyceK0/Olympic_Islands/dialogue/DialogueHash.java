@@ -1,22 +1,22 @@
-package com.github.JoyceK0.Olympic_Islands;
+package com.github.JoyceK0.Olympic_Islands.dialogue;
 
 /*
-Class Description:
 This hash table contains all the NPC names as keys and the values are
-the top of the linked list stack of dialogues for each NPC. This helps
-access the dialogue list quickly. This also contains the method to load
-dialogues into the hash table and create the linked queue lists (FIFO).
+the top of the decision trees of dialogues for each NPC (similar to binary but with 3 nodes).
+This helps access the dialogue list quickly. This also contains the method to load
+dialogues into the hash table and create the nodes (DialogueList) for the dialogues.
  */
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class DialogueHash {
+public class DialogueHash extends HashMaps {
 
     //Buckets attribute basically hold the main Array
     public DialogueList[] buckets;
@@ -28,7 +28,7 @@ public class DialogueHash {
         buckets = new DialogueList[howManyBuckets];
 
         //When adding characters to the hashmap, on the index of its name we add the
-        // ref value for the top linked list for its dialogue set
+        // ref value for the first dialogue of the decision tree (or the root) to the hash map
 
     }
 
@@ -42,17 +42,6 @@ public class DialogueHash {
 
 
     //METHODS OF DIALOGUE HASH
-
-
-    public int calcBucket(String name, int bucketsLength) {
-        //Performs hashing index calculation
-
-        int hashNumber = Math.abs(name.hashCode()); // This converts the name string into an arbitrary number that stays consistent for each name every runtime
-        return(hashNumber%bucketsLength);
-
-    }//end of calcBucket
-
-
 
     public void addToTable(DialogueList npcToAdd) {
         //Add a npc to the hash table
@@ -93,19 +82,6 @@ public class DialogueHash {
     }//end of addToTable
 
 
-    // Not a required method for the game but still there
-    public DialogueList removeFromTable(String name) {
-        //Removes a npc from the table based on their name and returns their ref value
-
-        int npcPlace = calcBucket(name, buckets.length);
-        DialogueList removedNpc = buckets[npcPlace]; // save removed npc ref value
-        buckets[npcPlace] = null; //replace original value with null
-
-        return removedNpc;
-
-    }//end of removeFromTable
-
-
 
     public DialogueList getNpc(String name) {
         //find and return npc starting dialogue reference value from table based on name
@@ -137,32 +113,7 @@ public class DialogueHash {
 
 
 
-    // ONLY FOR TESTING
-
-    public void displayTable() {
-        //display contents of buckets in order
-
-        System.out.println("\n_______________________\n\nTHE CONTENTS OF THE HASH TABLE:"); //header
-
-        //Print the buckets
-        for(int i = 0; i < buckets.length; i++) {
-
-            //If bucket contents is null, print error
-            if(buckets[i] == null) {
-                System.out.println("\n    " + i + ". EMPTY BUCKET\n");
-            }
-
-            //Print out NPC name
-            else {
-                System.out.println("\n    " + i + ". " + buckets[i].name + "\n");
-            }
-        }
-
-    }//end of displayTable
-
-
-
-    // a file opener function which opens an inputted file path and creates the linked lists for every character, adding the top of the queue to the hash table
+    // a file opener function which opens an inputted file path and creates the nodes for every character, adding to the hash table
     public void loadDialogue() {
 
         FileHandle file = Gdx.files.internal("data/TestDialogues.txt"); //initialize the file to read through file handler class
@@ -205,7 +156,6 @@ public class DialogueHash {
             while((line = reader.readLine()) != null) { // Keep running till the end of the file is reached
 
                 String name = line.strip().trim(); // According to formatting, the first line in every iteration will be the character name
-                System.out.println("name: " + line);
                 line = reader.readLine();
                 ArrayList<String> dialogue = new ArrayList<>(Arrays.asList(line.trim().strip().split(";"))); // get the first dialogue to go with the character name
 
@@ -213,7 +163,6 @@ public class DialogueHash {
                 DialogueList prevDialogue = character; //assign previous dialogue as the top of the stack/the root
 
                 line = reader.readLine(); //set line as the first line under the character
-                System.out.println("num/hash: "+line);
 
                 while(line!=null && !(line.trim().isEmpty())) { // now keep reading till encountering an empty line which separates different character dialogues
 
@@ -237,7 +186,6 @@ public class DialogueHash {
                     }
 
                     String speakerName = reader.readLine().trim(); // set the name of the character speaking as of the moment
-                    System.out.println("speakerName: "+speakerName);
 
                     String pathName; //instantiate pathName variable and then check to see if null. Can be null if no alternate paths exist to the dialogue.
                     if ((line = reader.readLine().trim()).equals("null")) { // if it was null, then the pathName also remains as null
@@ -246,8 +194,7 @@ public class DialogueHash {
 
                     dialogue = new ArrayList<>(Arrays.asList(reader.readLine().trim().strip().split(";"))); // determine the new dialogue and format it into array list if it is shown in parts
                     String triggerEvent = reader.readLine(); // set the trigger event variable, can exist for some mainstream dialogues which open after quest is completed
-                    System.out.println("triggerEvent: " + triggerEvent);
-                    String causesEvent = reader.readLine().trim(); // set the causes event variable
+                    String causesEvent = reader.readLine(); // set the causes event variable
 
                     DialogueList mainDialogue = new DialogueList(speakerName, true, dialogue, prevDialogue, triggerEvent, causesEvent); // instantiate new dialogue object with the main branch data
 
@@ -256,7 +203,6 @@ public class DialogueHash {
                     prevDialogue = mainDialogue; // set the previous as the current main dialogue in order to move onto the next set
 
                     line = reader.readLine(); // increment the line reader to check if the character's dialogues are finished (empty line) or document ended (null value)
-                    System.out.println("lineReaderCheck: " + line);
 
                 }
 

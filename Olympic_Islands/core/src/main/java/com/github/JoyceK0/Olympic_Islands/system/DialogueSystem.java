@@ -10,41 +10,47 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
-import com.github.JoyceK0.Olympic_Islands.DialogueHash;
-import com.github.JoyceK0.Olympic_Islands.DialogueList;
-import com.github.JoyceK0.Olympic_Islands.EventMap;
+import com.github.JoyceK0.Olympic_Islands.dialogue.DialogueHash;
+import com.github.JoyceK0.Olympic_Islands.dialogue.DialogueList;
+import com.github.JoyceK0.Olympic_Islands.dialogue.EventMap;
 import com.github.JoyceK0.Olympic_Islands.GdxGame;
 import com.github.JoyceK0.Olympic_Islands.input.GameControllerState;
 import com.github.JoyceK0.Olympic_Islands.input.IdleControllerState;
 import com.github.JoyceK0.Olympic_Islands.input.KeyboardController;
 
-import java.util.ArrayList;
-
 public class DialogueSystem extends EntitySystem {
 
-    // SINGLETON INSTANCE: Safely bridges static context back to instance mechanics
+    // This class handles the dialogue logic and displays it on the screen
+    // REMINDER: This is a basic outline for basic dialogue management. it does not utilize all variables
+    // and/or logic and doesn't represent the full capacity of the dialogue management system. it basically
+    // just tests the dialogue code and displays for a sample viewing of how the interaction will look
+    // like. It uses basic rendering and no ECS system rendering for the Dialogue system.
+
     private static DialogueSystem instance = null;
 
+    // Access various game systems and classes for basic text rendering
     private final GdxGame game;
     private final Batch batch;
-    private final ShapeRenderer shapeRenderer;
+    private final ShapeRenderer shapeRenderer; // renders the dialogue box at the bottom of the screen
     private final BitmapFont font;
 
+    // These are the required classes for dialogue management and control
     private final DialogueHash dialogueHash;
     private final EventMap eventMap;
     private final KeyboardController keyboardController;
 
-    private static boolean isActive = false;
-    private static DialogueList currentDialogue = null;
-    private static int currentTextIndex = 0;
+    private static boolean isActive = false; // tracks if dialogue system is active or not
+    private static DialogueList currentDialogue = null; // instantiates the holder variable for the current dialogue
+    private static int currentTextIndex = 0; // if the npc dialogue is too long, it is broken up into chunks to prevent overflow, this tracks those chunks
 
-    private boolean isControllerFrozen = false;
-    private static boolean justClosed = false;
+    private boolean isControllerFrozen = false; // this tracks if the game controller is on or off
+    private static boolean justClosed = false; // if you accidentally click spacebar twice it won't trigger the conversation again due to the justClosed tracking variable
 
-    // Portrait Caching Variables to prevent mid-frame garbage collection stuttering
+    // variables for storing and loading information regarding the sprite picture that shows up beside the dialogue box
     private Texture currentPortraitTexture = null;
     private String lastLoadedPath = "";
 
+    // Constructor, accesses the required variables such as DialogueHash and EventMap from the GdxGame where they were instantiated and loaded
     public DialogueSystem(GdxGame game, DialogueHash dialogueHash, EventMap eventMap, KeyboardController keyboardController) {
         this.game = game;
         this.batch = game.getBatch();
@@ -57,73 +63,79 @@ public class DialogueSystem extends EntitySystem {
         instance = this;
     }
 
+    // Accessor
     public static boolean isDialogueActive() {
         return isActive;
     }
 
+    // Start the dialogue
     public void startDialogue(String npcName) {
-        if (justClosed) return;
+        if (justClosed) return; // do not want starting due to accidental double click of spacebar when just closed
 
-        DialogueList node = dialogueHash.getNpc(npcName);
-        if (node == null) return;
+        DialogueList dialogueList = dialogueHash.getNpc(npcName); // get the dialogue dialogueList instance
+        if (dialogueList == null) return;
 
-        if (node.triggerEvent != null && !node.triggerEvent.isEmpty() && !node.triggerEvent.equals("null")) {
-            var event = eventMap.getEvent(node.triggerEvent);
-            if (event == null || !event.completion) {
+        // See if there is a trigger event related with the dialogue, and if yes then check is trigger event is completed and handle accordingly
+        if (dialogueList.triggerEvent != null && !dialogueList.triggerEvent.isEmpty() && !dialogueList.triggerEvent.equals("null")) {
+            var event = eventMap.getEvent(dialogueList.triggerEvent);
+            if (event == null || !event.completion) { // if trigger event existsd and not fulfilled then exit
                 System.out.println("This conversation is locked.");
                 return;
             }
         }
 
-        currentDialogue = node;
+        currentDialogue = dialogueList; // set current dialogue
         currentTextIndex = 0;
-        currentDialogue.chosenOption = -1;
-        isActive = true;
+        currentDialogue.chosenOption = -1; // the chosenOption default is -1 before user picks
+        isActive = true; // Dialogue system is now active, disabling character movement
 
-        keyboardController.setActiveState(IdleControllerState.class);
-        isControllerFrozen = true;
+        keyboardController.setActiveState(IdleControllerState.class); // set keyboard state to idle state
+        isControllerFrozen = true; // disable character movement
     }
 
+    // Everytime the spacebar is pressed advance the dialogue through basic logic
     public static void advanceDialogue() {
-        if (!isActive || currentDialogue == null || instance == null) return;
+        if (!isActive || currentDialogue == null || instance == null) return; // if dialogue is supposed to be inactive, return without doing antyhing
 
-        // Halt advancement if choice options are on screen and no choice has been made
+        // stop advancement if choice options are on screen and no choice has been made. Options will be made when the player types the number
         if (currentDialogue.path2name != null && currentDialogue.chosenOption == -1) {
             return;
         }
 
-        // Step through the individual text lines of the current node
+        // go through the individual text lines of the current dialogueList if there are any
         if (currentTextIndex < currentDialogue.dialogue.size() - 1) {
             currentTextIndex++;
         } else {
-            // Handle marking any associated game events as completed
+            // mark any associated game events as completed is relevant and required
             if (currentDialogue.causesEvent != null && !currentDialogue.causesEvent.isEmpty() && !currentDialogue.causesEvent.equals("null")) {
                 var event = instance.eventMap.getEvent(currentDialogue.causesEvent);
-                if (event != null) {
+                if (event != null) { // if dialogue causes event, then mark that event as completed
                     event.completed();
                     System.out.println("Event completed: " + currentDialogue.causesEvent);
                 }
             }
 
-            // Peek at the upcoming node in the sequence
-            DialogueList nextNode = currentDialogue.next();
+            // reference the next dialogue in the tree
+            DialogueList nextdialogueList = currentDialogue.next();
 
-            // RUN LOOKAHEAD EVALUATION RULES:
-            if (nextNode == null || nextNode == currentDialogue) {
-                // Rule A: There is no available dialogue after this. Keep done = false so it circulates.
+            // Check if the next dialogue can be run based on triggerEvents and its value
+            if (nextdialogueList == null || nextdialogueList == currentDialogue) {
+                // if in here then there is no available dialogue after the one just completed. Keep done = false so only the last dialogue circulates.
                 currentDialogue.done = false;
 
-                isActive = false;
-                currentDialogue = null;
-                justClosed = true;
-            } else {
-                // Check if the next node has a trigger requirements contract
-                if (nextNode.triggerEvent != null && !nextNode.triggerEvent.isEmpty() && !nextNode.triggerEvent.equals("null")) {
-                    var pendingEvent = instance.eventMap.getEvent(nextNode.triggerEvent);
+                isActive = false; // close dialogue system
+                currentDialogue = null; // reset current dialogue
+                justClosed = true; // set to true
+            }
+
+            else {
+                // check if the next dialogue has a triggerEvents variable and if its completed or not
+                if (nextdialogueList.triggerEvent != null && !nextdialogueList.triggerEvent.isEmpty() && !nextdialogueList.triggerEvent.equals("null")) {
+                    var pendingEvent = instance.eventMap.getEvent(nextdialogueList.triggerEvent);
 
                     if (pendingEvent == null || !pendingEvent.completion) {
-                        // Rule B: The next dialogue exists, but its trigger is NOT fulfilled yet!
-                        // Do not mark the current dialogue as done, close the window, and freeze progression.
+                        // if in here then the next dialogue exists, but its trigger is not complete yet
+                        // do not mark the current dialogue as done, close the window, and freeze dialogue progression till here.
                         currentDialogue.done = false;
 
                         isActive = false;
@@ -133,96 +145,102 @@ public class DialogueSystem extends EntitySystem {
                     }
                 }
 
-                // Rule C: There is a next dialogue AND it either has no trigger or a fulfilled one.
-                // The current node is officially exhausted. Mark it done!
-                currentDialogue.done = true;
+                // if nothing else triggers then there is a next dialogue AND it either has no trigger or a completed one.
+                currentDialogue.done = true; // mark the current dialogue as done
 
-                // Transition smoothly to the next node block
-                currentDialogue = nextNode;
+                // move to the next dialogue and temporary variables
+                currentDialogue = nextdialogueList;
                 currentTextIndex = 0;
                 currentDialogue.chosenOption = -1;
             }
         }
     }
 
+
+    // update the dialogue box
     @Override
     public void update(float deltaTime) {
-        if (!isActive && isControllerFrozen) {
+        if (!isActive && isControllerFrozen) { // if the dialogue system is off but game controller is still frozen, then reset and permit character movement
             keyboardController.setActiveState(GameControllerState.class);
             isControllerFrozen = false;
             return;
         }
 
-        if (!isActive && justClosed) {
+        if (!isActive && justClosed) { // reset justClose one iteration after the game was closed
             justClosed = false;
         }
 
+        // if the dialogue is still ongoing and there is an option available but the user hasn't chosen one yet, listen for basic key inputs
         if (isActive && currentDialogue != null && currentDialogue.path2name != null && currentDialogue.chosenOption == -1) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) { currentDialogue.chosenOption = 1; advanceDialogue(); }
             if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) { currentDialogue.chosenOption = 2; advanceDialogue(); }
             if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)) { currentDialogue.chosenOption = 3; advanceDialogue(); }
         }
 
-        if (!isActive && Gdx.input.isKeyJustPressed(Input.Keys.T)) {
-            startDialogue("Zeus");
+        // if the dialogue system is inactive but the user just pressed the space key while the system is listening for the trigger, then start dialogue up again
+        if (!isActive && Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            startDialogue("Stolk");
         }
 
-        if (isActive) {
+        if (isActive) { // finally, when updating is dialogue is still ongoing, re-render the dialogue box visual with the latest data
             renderDialogueBox();
         }
     }
 
+    // this method renders a basic dialogue box with basic text and view
     private void renderDialogueBox() {
         if (currentDialogue == null) return;
 
+        // we use basic Gdx graphics class to render the dialogue box, but for more complex system in the future Scene2D will be preferred
         float screenW = Gdx.graphics.getWidth();
         float screenH = Gdx.graphics.getHeight();
         float boxH = screenH * 0.25f;
 
-        // 1. Snapshot the native world camera layout matrix
+        //get the projection matrix for the camera
         Matrix4 oldProjection = batch.getProjectionMatrix().cpy();
 
-        // 2. Generate a flat 2D projection space overlay
+        // generate the area where we will render the dialogue box
         Matrix4 screenProjection = new Matrix4();
         screenProjection.setToOrtho2D(0, 0, screenW, screenH);
 
-        // 3. Render Background UI Layers
+        // start basic background rendering systems and set the basic background shape
         shapeRenderer.setProjectionMatrix(screenProjection);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 
-        // Base main dialogue strip container
-        shapeRenderer.setColor(new Color(0f, 0f, 0f, 0.85f));
+        // set some basic properties for the background shape
+        shapeRenderer.setColor(new Color(0f, 0f, 0f, 0.85f)); // keeping it a basic black for now with 85% opacity
         shapeRenderer.rect(0, 0, screenW, boxH);
 
-        // Frame bounding boxes
+        // basic sizing for the image of the character speaking
         float portraitMargin = 15f;
         float portraitSize = boxH - (portraitMargin * 2f);
         float portraitX = portraitMargin;
         float portraitY = portraitMargin;
 
-        // Draw Gold outer frame border
+        // draw Gold outer frame border of the sprite image
         shapeRenderer.setColor(Color.GOLD);
         shapeRenderer.rect(portraitX - 2f, portraitY - 2f, portraitSize + 4f, portraitSize + 4f);
 
-        // Inner backing window slot
+        // a smaller, lighter shape layer on the background for graphics
         shapeRenderer.setColor(new Color(0.1f, 0.1f, 0.1f, 0.95f));
         shapeRenderer.rect(portraitX, portraitY, portraitSize, portraitSize);
 
-        shapeRenderer.end();
+        shapeRenderer.end(); // close the shape renderer, basic shapes are completed
 
-        // 4. Dynamic Stream Resource Cache Loader
-        String nodePath = currentDialogue.spritePath;
+        //find the sprite path for the image
+        String dialogueListPath = currentDialogue.spritePath;
 
-        if (nodePath != null && !nodePath.equals("null") && !nodePath.isEmpty()) {
-            if (!nodePath.equals(lastLoadedPath)) {
+        // ensure the image path is usable, then render
+        if (dialogueListPath != null && !dialogueListPath.equals("null") && !dialogueListPath.isEmpty()) {
+            if (!dialogueListPath.equals(lastLoadedPath)) {
                 if (currentPortraitTexture != null) {
                     currentPortraitTexture.dispose();
                 }
                 try {
-                    currentPortraitTexture = new Texture(Gdx.files.internal(nodePath));
-                    lastLoadedPath = nodePath;
+                    currentPortraitTexture = new Texture(Gdx.files.internal(dialogueListPath));
+                    lastLoadedPath = dialogueListPath;
                 } catch (Exception e) {
-                    System.out.println("Failed to stream image path asset: " + nodePath);
+                    System.out.println("Failed to stream image path asset: " + dialogueListPath);
                     currentPortraitTexture = null;
                     lastLoadedPath = "";
                 }
@@ -235,28 +253,28 @@ public class DialogueSystem extends EntitySystem {
             lastLoadedPath = "";
         }
 
-        // 5. Render active assets out to screen layout space
+        //finalize some visual properties and background systems
         batch.setProjectionMatrix(screenProjection);
         batch.begin();
-        batch.setColor(Color.WHITE); // Wipe out dirty tint states
+        batch.setColor(Color.WHITE); // this prevents unnecessary tinting on graphics
 
         if (currentPortraitTexture != null) {
             batch.draw(currentPortraitTexture, portraitX, portraitY, portraitSize, portraitSize);
         }
 
-        // Align typography layout bounds relative to portrait box width edge
+        // align the boundary for the text boxes
         float textOffsetX = portraitX + portraitSize + 30f;
 
-        // Draw Speaker Name Text
+        // draw speaker name
         font.setColor(Color.GOLD);
         font.draw(batch, currentDialogue.name.toUpperCase(), textOffsetX, boxH - 20f);
 
-        // Draw Conversation Text body
+        // draw the main dialogue text on the screen
         font.setColor(Color.WHITE);
         String currentText = currentDialogue.dialogue.get(currentTextIndex);
         font.draw(batch, currentText, textOffsetX, boxH - 55f);
 
-        // Render Action Choices or Continual Help hints
+        // render option choices and helper hints to help the user navigate dialogues
         if (currentDialogue.path2name != null && currentDialogue.chosenOption == -1) {
             font.setColor(Color.CYAN);
             if (currentDialogue.path1name != null) font.draw(batch, "[1]: " + currentDialogue.path1name, textOffsetX, boxH - 95f);
@@ -267,15 +285,15 @@ public class DialogueSystem extends EntitySystem {
             font.draw(batch, "Press [SPACE] to continue...", screenW - 220f, 25f);
         }
 
-        batch.end();
+        batch.end(); // close the asset batch
 
-        // 6. Return original tracking state back to your game camera loop
+        // set the screen to the original setting for game screen
         batch.setProjectionMatrix(oldProjection);
     }
 
+    // dispose of assets and free up memory allocation, specifically the sprite image frame, the font, and the shape renderer
     @Override
     public void removedFromEngine(Engine engine) {
-        // Prevent continuous VRAM allocation leaks if the screen environment unloads
         if (currentPortraitTexture != null) {
             currentPortraitTexture.dispose();
         }

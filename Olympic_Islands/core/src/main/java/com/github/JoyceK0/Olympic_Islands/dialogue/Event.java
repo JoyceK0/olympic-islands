@@ -1,7 +1,6 @@
-package com.github.JoyceK0.Olympic_Islands;
+package com.github.JoyceK0.Olympic_Islands.dialogue;
 
 /*
-Class Description:
 This is the class which creates the basic event object
 used to store event names and their completion boolean
 values in the event hash map.

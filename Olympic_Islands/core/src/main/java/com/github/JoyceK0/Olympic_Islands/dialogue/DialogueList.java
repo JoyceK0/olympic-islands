@@ -1,32 +1,29 @@
-package com.github.JoyceK0.Olympic_Islands;
+package com.github.JoyceK0.Olympic_Islands.dialogue;
 
 import java.util.ArrayList;
 
-/*
-Class Description:
-This class manages all the dialogues and provides a way to create a linked list for dialogue storage and easy access.
- */
+// This class manages all the dialogues and provides a way to create a generic decision tree for dialogue storage and easy access.
 
 
 public class DialogueList {
 
     // Attributes
 
-    public String name;
-    public boolean done;
-    public boolean mainBranch;
-    public String triggerEvent;
-    public String causesEvent;
-    public ArrayList<String> dialogue;
-    public String path1name;
+    public String name; // the name of the character speaking
+    public boolean done; // keeps track of if the dialogue is done and needs to be skipped next time
+    public boolean mainBranch; // keeps track of if the current dialogue is part of the main storyline or not
+    public String triggerEvent; // what event needs to be triggered to run this dialogue
+    public String causesEvent; // what event does the current dialogue cause if any
+    public ArrayList<String> dialogue; // the main dialogue array list
+    public String path1name; //the path names are the choice options that are displayed on the dialogue pane
     public String path2name;
     public String path3name;
-    public int chosenOption;
+    public int chosenOption; // the option the player as chosen for the dialogue between 1, 2, and 3
     private DialogueList path1;
     private DialogueList path2;
     private DialogueList path3;
-    public DialogueList prevDialogue;
-    public String spritePath;
+    public DialogueList prevDialogue; // link to previous dialogue for easier navigation
+    public String spritePath; // link to the sprite image that shows up beside the character dialogue
 
     // Constructor
 
@@ -76,7 +73,7 @@ public class DialogueList {
 
 
 
-    // a .addPath method for adding a path name and its linked list ref number
+    // a .addPath method for adding a path name and its reference value
     public void addPath(String pathName, DialogueList path){
         if(path1==null){
             this.path1name = pathName;

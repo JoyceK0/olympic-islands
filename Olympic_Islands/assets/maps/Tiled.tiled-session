@@ -25,17 +25,17 @@
             "scaleInEditor": 1
         },
         "main.tmx": {
-            "scale": 1.22,
+            "scale": 1.12,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 800,
-                "y": 795.4918032786885
+                "x": 1091.0714285714284,
+                "y": 732.5892857142858
             }
         },
         "objects.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 1,
-            "scaleInEditor": 2.09
+            "scaleInEditor": 3.94
         },
         "objects/chicken.tsx": {
             "dynamicWrapping": false,
@@ -75,12 +75,12 @@
         "test.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 1.8192,
-            "scaleInEditor": 2.09
+            "scaleInEditor": 3.94
         },
         "tileset.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 2.5155,
-            "scaleInEditor": 2.09
+            "scaleInEditor": 3.94
         }
     },
     "frame.defaultDuration": 200,

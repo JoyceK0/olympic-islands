@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="30">
+<map version="1.10" tiledversion="1.12.1" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="60">
  <properties>
   <property name="music" value="TOWN"/>
  </properties>
@@ -8,7 +8,7 @@
  <tileset firstgid="554" source="objects.tsx"/>
  <layer id="1" name="ground" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   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
+   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
   </data>
  </layer>
  <layer id="3" name="background" width="100" height="100">
@@ -17,16 +17,37 @@
   </data>
  </layer>
  <objectgroup id="4" name="objects">
-  <object id="25" gid="560" x="-0.0488991" y="1513.22" width="64" height="80"/>
-  <object id="26" gid="560" x="122.893" y="1583.38" width="64" height="80"/>
-  <object id="27" gid="561" x="60.3559" y="1508.75" width="96" height="128"/>
-  <object id="28" gid="562" x="11.2587" y="1584.13" width="60" height="33"/>
-  <object id="29" gid="559" x="70.597" y="1538.86" width="21" height="21">
+  <object id="29" gid="559" x="863.177" y="810.249" width="21" height="21">
    <properties>
     <property name="camFollow" type="bool" value="true"/>
     <property name="controller" type="bool" value="true"/>
    </properties>
   </object>
+  <object id="33" gid="561" x="249.361" y="571.03" width="96" height="116"/>
+  <object id="34" gid="561" x="362.914" y="573.481" width="96" height="116"/>
+  <object id="35" gid="561" x="464.213" y="576.748" width="96" height="116"/>
+  <object id="36" gid="561" x="823.661" y="773.628" width="96" height="116"/>
+  <object id="39" gid="563" x="485.923" y="675.846" width="42" height="63"/>
+  <object id="40" gid="563" x="422.846" y="797.385" width="42" height="63"/>
+  <object id="41" gid="563" x="346.692" y="712" width="42" height="63"/>
+  <object id="42" gid="563" x="175.154" y="564.308" width="42" height="63"/>
+  <object id="43" gid="563" x="508.231" y="462" width="42" height="63"/>
+  <object id="44" gid="563" x="1162.85" y="870.462" width="42" height="63"/>
+  <object id="45" gid="563" x="1136.69" y="1047.38" width="42" height="63"/>
+  <object id="46" gid="563" x="1229" y="995.846" width="42" height="63"/>
+  <object id="47" gid="563" x="1353.62" y="887.385" width="42" height="63"/>
+  <object id="48" gid="563" x="1406.69" y="1078.15" width="42" height="63"/>
+  <object id="49" gid="563" x="1268.23" y="1160.46" width="42" height="63"/>
+  <object id="50" gid="563" x="1170.54" y="1336.62" width="42" height="63"/>
+  <object id="51" gid="563" x="1358.23" y="1324.31" width="42" height="63"/>
+  <object id="52" gid="562" x="1232.09" y="833.5" width="60" height="33"/>
+  <object id="53" gid="562" x="1299.15" y="933.653" width="60" height="33"/>
+  <object id="54" gid="562" x="1193.05" y="1049.93" width="60" height="33"/>
+  <object id="55" gid="562" x="568.37" y="797.003" width="60" height="33"/>
+  <object id="56" gid="562" x="447.848" y="878.484" width="60" height="33"/>
+  <object id="57" gid="562" x="308.652" y="795.306" width="60" height="33"/>
+  <object id="58" gid="562" x="631.178" y="1028.71" width="60" height="33"/>
+  <object id="59" gid="562" x="139.75" y="188.448" width="60" height="33"/>
  </objectgroup>
  <objectgroup id="5" name="player"/>
  <layer id="2" name="foreground" width="100" height="100">

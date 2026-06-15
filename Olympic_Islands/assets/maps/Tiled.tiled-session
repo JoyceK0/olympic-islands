@@ -25,17 +25,17 @@
             "scaleInEditor": 1
         },
         "main.tmx": {
-            "scale": 2.99,
+            "scale": 1.22,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 56.856187290969885,
-                "y": 1501.839464882943
+                "x": 800,
+                "y": 795.4918032786885
             }
         },
         "objects.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 1,
-            "scaleInEditor": 2.69
+            "scaleInEditor": 2.09
         },
         "objects/chicken.tsx": {
             "dynamicWrapping": false,
@@ -75,12 +75,12 @@
         "test.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 1.8192,
-            "scaleInEditor": 2.69
+            "scaleInEditor": 2.09
         },
         "tileset.tsx": {
             "dynamicWrapping": false,
             "scaleInDock": 2.5155,
-            "scaleInEditor": 2.69
+            "scaleInEditor": 2.09
         }
     },
     "frame.defaultDuration": 200,
@@ -99,7 +99,7 @@
         "objects.tsx"
     ],
     "project": "Tiled.tiled-project",
-    "property.type": "float",
+    "property.type": "string",
     "recentFiles": [
         "main.tmx",
         "tileset.tsx",

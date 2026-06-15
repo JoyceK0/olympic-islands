@@ -97,7 +97,7 @@ public class TiledService {
 
     }
 
-    private void spawnMapBoundary(TiledMap tiledMap) {
+    private void spawnMapBoundary(TiledMap tiledMap) { //sets map boundary
         Integer width = tiledMap.getProperties().get("width", 0, Integer.class);
         Integer tileW = tiledMap.getProperties().get("tilewidth", 0, Integer.class);
         Integer height = tiledMap.getProperties().get("height", 0, Integer.class);
@@ -114,7 +114,7 @@ public class TiledService {
         bodyDef.fixedRotation = true;
         Body body = physicWorld.createBody(bodyDef);
         body.setUserData("environment");
-
+        //map boundary for each edge
         //left edge
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(boxThickness, halfH, new Vector2(-boxThickness, halfH),0f);
